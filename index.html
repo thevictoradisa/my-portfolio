@@ -35,7 +35,10 @@
   --fb:'Inter',system-ui,-apple-system,sans-serif;
   --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  --gap:clamp(6rem,12vw,10rem);   /* space between ideas */
+  /* Three spacing tiers, applied by content weight, not uniformly. */
+  --gap-major:clamp(6rem,12vw,10rem); /* break between major sections   */
+  --gap-related:3rem;                 /* related blocks within a section */
+  --gap-minor:2rem;                   /* minor or single-line blocks     */
   --measure:720px;                /* text never wider    */
 }
 
@@ -68,8 +71,17 @@ p{max-width:var(--measure)}
 strong{font-weight:500;color:var(--bright)}
 
 /* ---------- rhythm: one idea per viewport ---------- */
-section{padding:var(--gap) 0}
-.block + .block{margin-top:var(--gap)}
+section{padding-top:var(--gap-major)}
+section:last-of-type{padding-bottom:var(--gap-major)}
+section.light{padding-top:var(--gap-related)}
+section.tight{padding-top:var(--gap-minor)}
+.mt-related{margin-top:var(--gap-related)}
+.mt-minor{margin-top:var(--gap-minor)}
+
+/* photo + capabilities share one screen */
+.split{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);
+       gap:clamp(2rem,5vw,4rem);align-items:center}
+.caps{font-family:var(--fm);font-size:12px;line-height:2.1;color:var(--body);max-width:var(--measure)}
 .head .label{margin-bottom:1.6rem}
 .head h2 + p{margin-top:1.6rem}
 
@@ -89,14 +101,14 @@ section{padding:var(--gap) 0}
 .avail i{width:5px;height:5px;border-radius:50%;background:var(--red);flex:none}
 
 /* ---------- hero: name, one sentence, one button ---------- */
-.hero{padding:clamp(5rem,14vw,9rem) 0 var(--gap)}
+.hero{padding:clamp(5rem,14vw,9rem) 0 0}
 .hero h1{margin:2rem 0}
 .hero p{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--body)}
 .hero .btn{margin-top:2.6rem}
 
 /* ---------- quiet full-width portrait ---------- */
 .portrait{max-width:420px}
-.portrait img{filter:grayscale(1) contrast(1.05);opacity:.92}
+.portrait img{}  /* no filter: colour treatment is Victor's call, not the stylesheet's */
 .portrait .label{margin-top:1.2rem}
 
 /* ---------- the numbers row (moved out of the hero) ---------- */
@@ -122,7 +134,7 @@ section{padding:var(--gap) 0}
 .shot{margin-top:2.5rem}
 .shot img{border:1px solid var(--line)}
 .shot .label{margin-top:.9rem}
-.embed{position:relative;padding-top:177.78%;max-width:300px;border:1px solid var(--line)}
+.embed{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;border:1px solid var(--line)}
 .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* ---------- work links ---------- */
@@ -143,6 +155,10 @@ section{padding:var(--gap) 0}
   .btn.quiet:hover{border-color:rgba(255,255,255,.3);opacity:1}
   .foot a:hover{color:var(--white)}
   a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
+}
+@media(max-width:860px){
+  .split{grid-template-columns:1fr;gap:var(--gap-related)}
+  .portrait{max-width:320px}
 }
 @media(max-width:640px){
   .rule-item{grid-template-columns:1fr;gap:.6rem}
@@ -173,23 +189,17 @@ section{padding:var(--gap) 0}
   </div>
 </section>
 
-<!-- ───────────── PORTRAIT ───────────── -->
-<section>
-  <div class="wrap">
+<!-- ───────────── PORTRAIT + CAPABILITIES (one screen, not two) ───────────── -->
+<section class="light">
+  <div class="wrap split">
     <figure class="portrait">
       <img src="images/victor-cutout.png" alt="Victor Adisa" width="900" height="1138" loading="lazy">
       <figcaption class="label">Victor Adisa — Strategy, content, design, code</figcaption>
     </figure>
-  </div>
-</section>
-
-<!-- ───────────── CAPABILITIES ───────────── -->
-<section>
-  <div class="wrap">
-    <span class="label">Capabilities</span>
-    <p class="label" style="margin-top:1.4rem;line-height:2.2;max-width:var(--measure);color:var(--body);font-size:11px">
-      Strategy · Content · Video · Design · Web Development · Paid Ads · Analytics · Growth
-    </p>
+    <div>
+      <span class="label">Capabilities</span>
+      <p class="caps mt-minor">Strategy · Content · Video · Design · Web Development · Paid Ads · Analytics · Growth</p>
+    </div>
   </div>
 </section>
 
@@ -198,7 +208,7 @@ section{padding:var(--gap) 0}
   <div class="wrap head">
     <span class="label">Real numbers, real results</span>
     <h2 class="measure">The kind of results agencies promise.</h2>
-    <div class="row" style="margin-top:4rem">
+    <div class="row mt-related">
       <div class="fig"><span class="label">Total impressions</span><b>5.2M</b><span>Generated across platforms in 7 months</span></div>
       <div class="fig"><span class="label">Single reel</span><b>4.7M</b><span>Views on a single reel — a record month for the brand</span></div>
       <div class="fig"><span class="label">Follower growth</span><b>+35%</b><span>Facebook follower growth in one campaign period</span></div>
@@ -214,7 +224,7 @@ section{padding:var(--gap) 0}
     <h2 class="measure">Screenshots don't lie.</h2>
     <p>Anyone can claim results. These are pulled directly from live client dashboards — Instagram insights and Meta Ads Manager, exactly as they appear.</p>
 
-    <div class="row" style="margin-top:4rem">
+    <div class="row mt-related">
       <div class="fig"><span class="label">Ad impressions</span><b>7.1M</b><span>Delivered in one campaign period</span></div>
       <div class="fig"><span class="label">Accounts reached</span><b>1.6M</b><span>Through paid campaigns</span></div>
       <div class="fig"><span class="label">Single month</span><b>988K</b><span>Views in a single month — one account</span></div>
@@ -234,7 +244,7 @@ section{padding:var(--gap) 0}
       <figcaption class="label">7.1M impressions · Meta Ads Manager</figcaption>
     </figure>
 
-    <p class="label" style="margin-top:2.5rem">Pulled directly from client dashboards. Names cropped for privacy — numbers untouched.</p>
+    <p class="label mt-minor">Pulled directly from client dashboards. Names cropped for privacy — numbers untouched.</p>
   </div>
 </section>
 
@@ -317,14 +327,14 @@ section{padding:var(--gap) 0}
     <h2 class="measure">7 months. One brand. Every metric up.</h2>
     <p>Full-stack marketing for a multi-brand logistics company — social strategy, video content, paid campaigns, and website management, all handled by one person. Here's what happened.</p>
 
-    <div class="row" style="margin-top:4rem">
+    <div class="row mt-related">
       <div class="fig"><span class="label">Total combined followers</span><b>12,330</b><span>+1,876 net new across 4 platforms — an 18% jump in 7 months</span></div>
       <div class="fig"><span class="label">YouTube video views</span><b>+1,361%</b><span>36.6K views in a single month, driven by targeted ad strategy</span></div>
       <div class="fig"><span class="label">Website page views</span><b>+122%</b><span>12.7K page views with direct + organic traffic leading all sources</span></div>
     </div>
 
-    <p class="label" style="margin-top:4rem">Platform growth over the same period</p>
-    <div class="rules" style="margin-top:1.5rem">
+    <p class="label" class="mt-related">Platform growth over the same period</p>
+    <div class="rules mt-minor">
       <div class="pair"><span>Facebook impressions</span><span>128K → 1.47M / month</span></div>
       <div class="pair"><span>LinkedIn reach</span><span>+65% best month</span></div>
       <div class="pair"><span>Website active users</span><span>596 → 976 / week at peak</span></div>
@@ -340,7 +350,7 @@ section{padding:var(--gap) 0}
     <p>Most marketers pick a lane. I built the whole road. Strategy taught me what to say, design taught me how to make it beautiful, and code taught me how to make it convert.</p>
     <p style="margin-top:1.4rem">That combination is why brands hand me the entire engine — not just a piece of it.</p>
 
-    <figure class="portrait" style="margin-top:3.5rem">
+    <figure class="portrait mt-related">
       <img src="images/victor-portrait.jpg" alt="Victor Adisa" width="1024" height="1024" loading="lazy">
       <figcaption class="label">10+ years of craft</figcaption>
     </figure>
@@ -357,7 +367,7 @@ section{padding:var(--gap) 0}
 </section>
 
 <!-- ───────────── CLIENTS ───────────── -->
-<section>
+<section class="light">
   <div class="wrap head">
     <span class="label">Brands I've worked with</span>
     <h2 class="measure">Trusted across industries.</h2>
@@ -378,11 +388,11 @@ section{padding:var(--gap) 0}
     <span class="label">Ready to grow your brand? — Free 30-minute strategy call</span>
     <h2 class="measure">Skip the agency. Get the results.</h2>
     <p>30 minutes. Free. We'll map out exactly what your brand needs to grow.</p>
-    <p style="margin-top:2.6rem">
+    <p class="mt-related">
       <a class="btn" href="https://calendly.com/adisavictor4/30min">Book your free call</a>
       <a class="btn quiet" href="mailto:adisavictor4@gmail.com" style="margin-left:.8rem">Or email me</a>
     </p>
-    <p class="label" style="margin-top:2.2rem">No pitch decks. No pressure. Just a real conversation about your growth.</p>
+    <p class="label mt-minor">No pitch decks. No pressure. Just a real conversation about your growth.</p>
   </div>
 </section>
 
