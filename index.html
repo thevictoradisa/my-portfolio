@@ -81,15 +81,26 @@ a{color:inherit;text-decoration:none}
 .tabs{display:flex;gap:.3rem}
 .tab{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--label);background:none;border:1px solid transparent;border-radius:2px;
-  padding:.45rem .85rem;cursor:pointer;transition:color .2s,border-color .2s}
-.tab[aria-selected="true"]{color:var(--white);border-color:var(--line)}
+  padding:.45rem .85rem;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;
+  transition:color .25s,border-color .25s,background-color .25s}
+.tab svg{width:12px;height:12px;flex:none}
+.tab[aria-selected="true"]{color:#fff;border-color:var(--red);background:var(--red)}
 .close{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--label);background:none;border:1px solid var(--line);border-radius:2px;
   padding:.45rem .85rem;cursor:pointer;transition:color .2s,border-color .2s}
 
 .panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   gap:1rem;margin-top:1rem;align-items:start}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:1.5rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:1.5rem;
+  transition:transform .45s cubic-bezier(.2,.7,.3,1),opacity .45s ease,border-color .45s ease}
+/* the picked section lifts; the others step back */
+.panels[data-active] .panel{opacity:.42;transform:translateY(6px) scale(.985)}
+.panels[data-active] .panel.is-active{opacity:1;transform:none;border-color:rgba(255,255,255,.22)}
+@media(max-width:900px){
+  .panels[data-active] .panel{opacity:1;transform:none}
+  .panel.is-entering{animation:panelIn .4s cubic-bezier(.2,.7,.3,1) both}
+}
+@keyframes panelIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
 .panel h2{font-family:var(--fm);font-weight:500;font-size:11px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--mid);margin-bottom:1.25rem;
   display:flex;align-items:center}
@@ -127,7 +138,25 @@ a{color:inherit;text-decoration:none}
 .panel .btn{margin-top:1.25rem}
 .note{margin-top:1rem;font-size:12.5px;color:var(--label);line-height:1.55}
 
+/* ---------- the three-second test ---------- */
+.test{width:100%;margin-top:2.5rem;border:1px solid var(--line);border-radius:3px;
+  padding:1.25rem;text-align:left}
+.test-copy{margin-top:.7rem;font-size:13px;color:var(--mid);line-height:1.55}
+.field{position:relative;height:116px;margin-top:1rem;border:1px dashed var(--line);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.field-msg{position:absolute;pointer-events:none}
+.target{position:absolute;width:38px;height:38px;border-radius:50%;background:var(--red);
+  border:0;cursor:pointer;padding:0;animation:ping .9s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(227,18,18,.55)}70%{box-shadow:0 0 0 14px rgba(227,18,18,0)}100%{box-shadow:0 0 0 0 rgba(227,18,18,0)}}
+.test-btn{margin-top:1rem;width:100%;font-family:var(--fm);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--bright);background:none;border:1px solid var(--line);
+  border-radius:2px;padding:.7rem 1rem;cursor:pointer;transition:color .2s,border-color .2s}
+.result{color:var(--white);font-family:var(--fh);font-weight:700;font-size:26px;letter-spacing:-.02em}
+.result small{display:block;font-family:var(--fm);font-size:10px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--label);margin-top:.4rem}
+
 @media(hover:hover){
+  .test-btn:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
   .btn:hover{opacity:.85}
   .links a:hover,.go:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
   .tab:hover,.close:hover{color:var(--white);border-color:var(--line)}
@@ -147,7 +176,8 @@ a{color:inherit;text-decoration:none}
   .shot{width:168px}
   .figs{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
+  .target{box-shadow:0 0 0 6px rgba(227,18,18,.25)}}
 </style>
 </head>
 <body>
@@ -168,6 +198,17 @@ a{color:inherit;text-decoration:none}
       <a href="https://www.instagram.com/thevictoradisa">Instagram</a>
       <a href="https://www.linkedin.com/in/victor-adisa-4a1778222">LinkedIn</a>
     </nav>
+
+    <!-- a small distraction, on theme: attention is the product -->
+    <section class="test" aria-labelledby="testh">
+      <p class="label" id="testh"><i class="dot"></i>The three-second test</p>
+      <p class="test-copy">A reel gets about three seconds to stop a thumb. Tap the dot the moment it lands.</p>
+      <div class="field" id="field">
+        <button class="target" id="target" hidden aria-label="Tap now"></button>
+        <span class="field-msg label" id="msg">Press start</span>
+      </div>
+      <button class="test-btn" id="start">Start</button>
+    </section>
   </article>
 
   <!-- ─────────── expanded ─────────── -->
@@ -176,9 +217,9 @@ a{color:inherit;text-decoration:none}
     <div class="bar">
       <span class="label status"><i class="dot"></i>Victor Adisa — available</span>
       <div class="tabs" role="tablist" aria-label="Sections">
-        <button class="tab" role="tab" aria-selected="true"  aria-controls="p1" id="t1">Resume</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">Work</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">Contact</button>
+        <button class="tab" role="tab" aria-selected="true"  aria-controls="p1" id="t1"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2zM14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14z"/></svg>Resume</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4.5h4l1.5 2H14V13H2z"/></svg>Work</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12v8H2z"/><path d="m2 4.6 6 4 6-4"/></svg>Contact</button>
       </div>
       <button class="close" id="close">Close</button>
     </div>
@@ -297,9 +338,17 @@ a{color:inherit;text-decoration:none}
       panels=[].slice.call(document.querySelectorAll('.panel')),
       narrow=window.matchMedia('(max-width:900px)');
 
+  var wrap=document.querySelector('.panels');
   function show(i){
     tabs.forEach(function(t,n){ t.setAttribute('aria-selected', n===i?'true':'false'); });
-    panels.forEach(function(p,n){ if(narrow.matches){ p.hidden = n!==i; } else { p.hidden=false; } });
+    wrap.setAttribute('data-active', i);
+    panels.forEach(function(p,n){
+      p.classList.toggle('is-active', n===i);
+      if(narrow.matches){
+        p.hidden = n!==i;
+        if(n===i){ p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
+      } else { p.hidden=false; }
+    });
   }
   function setOpen(on){
     page.classList.toggle('is-open', on);
@@ -319,6 +368,40 @@ a{color:inherit;text-decoration:none}
   document.addEventListener('keydown', function(e){
     if(e.key==='Escape' && page.classList.contains('is-open')) setOpen(false);
   });
+  /* ---- three-second test ---- */
+  var field=document.getElementById('field'), target=document.getElementById('target'),
+      msg=document.getElementById('msg'), start=document.getElementById('start'),
+      timer=null, t0=0, armed=false, best=null;
+
+  function reset(text){
+    clearTimeout(timer); armed=false; target.hidden=true;
+    msg.hidden=false; msg.innerHTML=text; msg.className='field-msg label';
+  }
+  function run(){
+    reset('Wait for it…');
+    start.textContent='Waiting';
+    timer=setTimeout(function(){
+      var pad=26;
+      var x=pad+Math.random()*(field.clientWidth-38-pad*2);
+      var y=pad+Math.random()*(field.clientHeight-38-pad*2);
+      target.style.left=Math.round(x)+'px'; target.style.top=Math.round(y)+'px';
+      target.hidden=false; msg.hidden=true; armed=true; t0=performance.now();
+      target.focus();
+    }, 700+Math.random()*1800);
+  }
+  start.addEventListener('click', run);
+  target.addEventListener('click', function(){
+    if(!armed) return;
+    var ms=Math.round(performance.now()-t0);
+    if(best===null||ms<best) best=ms;
+    reset('<span class="result">'+ms+'ms<small>'+(ms<250?'Faster than most thumbs':'A reel would have lost you')+(best!==null&&best!==ms?' · best '+best+'ms':'')+'</small></span>');
+    start.textContent='Again';
+  });
+  field.addEventListener('click', function(e){
+    if(e.target===target||armed) return;
+    if(timer){ reset('Too early. Press start.'); start.textContent='Start'; }
+  });
+
   narrow.addEventListener('change', function(){
     var i=tabs.findIndex(function(t){return t.getAttribute('aria-selected')==='true';});
     show(i<0?0:i);
