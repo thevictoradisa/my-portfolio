@@ -60,7 +60,7 @@ body{display:flex;flex-direction:column;min-height:100svh}
 .page.is-open{align-items:flex-start}
 
 /* ---------- card shell: a red light travelling the border ---------- */
-.shell{position:relative;border-radius:5px;padding:1px;overflow:hidden;width:100%}
+.shell{position:relative;border-radius:7px;padding:3px;overflow:hidden;width:100%}
 .shell::before{
   content:"";position:absolute;left:-60%;top:-60%;width:220%;height:220%;
   background:conic-gradient(from 0deg,
@@ -69,7 +69,7 @@ body{display:flex;flex-direction:column;min-height:100svh}
   animation:orbit 5.5s linear infinite;
 }
 .shell::after{
-  content:"";position:absolute;inset:1px;border-radius:4px;background:var(--bg);
+  content:"";position:absolute;inset:3px;border-radius:4px;background:var(--bg);
 }
 @keyframes orbit{to{transform:rotate(1turn)}}
 .inner{position:relative;z-index:1;border-radius:4px;background:var(--bg);
@@ -188,6 +188,46 @@ body{display:flex;flex-direction:column;min-height:100svh}
 .panel .btn{margin-top:1.25rem}
 .note{margin-top:1rem;font-size:12.5px;color:var(--label);line-height:1.55}
 
+/* ---------- reels: facade, then plays in place ---------- */
+.reels{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.reel{position:relative;aspect-ratio:9/16;border:1px solid var(--line);border-radius:3px;
+  overflow:hidden;background:#000}
+.reel img,.reel iframe{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.play{position:absolute;inset:0;width:100%;height:100%;background:rgba(10,10,10,.25);
+  border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .25s ease}
+.play span{width:40px;height:40px;border-radius:50%;background:var(--red);position:relative;
+  box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.play span::after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
+  border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
+
+/* ---------- site previews: live, inside the page ---------- */
+.site{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0c0c0c}
+.chrome{display:flex;align-items:center;gap:.4rem;padding:.5rem .7rem;
+  border-bottom:1px solid var(--line);background:#121212}
+.chrome i{width:7px;height:7px;border-radius:50%;background:#2e2e2e;flex:none}
+.chrome span{margin-left:.5rem;font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--label)}
+.viewport{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
+.viewport iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.load{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bright);background:none;border:1px solid var(--line);border-radius:2px;
+  padding:.6rem .9rem;cursor:pointer;transition:color .2s,border-color .2s}
+.viewport.is-live{height:380px}
+
+/* ---------- opening effect ---------- */
+.card{transition:opacity .3s ease,transform .3s ease}
+.card.is-leaving{opacity:0;transform:scale(.97) translateY(-8px)}
+.sweep{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:0}
+.sweep.go{animation:sweep .62s cubic-bezier(.2,.7,.3,1) both}
+@keyframes sweep{
+  0%{opacity:0;background:linear-gradient(100deg,transparent 40%,rgba(227,18,18,.5) 50%,transparent 60%);
+     transform:translateX(-60%)}
+  35%{opacity:1}
+  100%{opacity:0;background:linear-gradient(100deg,transparent 40%,rgba(227,18,18,.5) 50%,transparent 60%);
+     transform:translateX(60%)}
+}
+
 /* ---------- the three-second test ---------- */
 .test{width:100%;margin-top:2.5rem;border:1px solid var(--line);border-radius:3px;
   padding:1.25rem;text-align:left}
@@ -206,6 +246,8 @@ body{display:flex;flex-direction:column;min-height:100svh}
   text-transform:uppercase;color:var(--label);margin-top:.4rem}
 
 @media(hover:hover){
+  .play:hover{background:rgba(10,10,10,.05)}
+  .load:hover{color:#fff;border-color:var(--red)}
   .test-btn:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
   .btn:hover{opacity:.85}
   .links a:hover,.go:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
@@ -226,6 +268,7 @@ body{display:flex;flex-direction:column;min-height:100svh}
   .top-meta{text-align:left;flex-direction:row;gap:1rem}
   .logo{font-size:30px}
 }
+@media(max-width:520px){ .reels{grid-template-columns:1fr} }
 @media(max-width:420px){
   /* inner padding narrows the content box, so the name needs a smaller cut */
   .inner{padding:1.4rem 1.2rem 1.25rem}
@@ -235,6 +278,7 @@ body{display:flex;flex-direction:column;min-height:100svh}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   .shell::before{background:rgba(227,18,18,.35)}
+  .sweep{display:none}
   .target{box-shadow:0 0 0 6px rgba(227,18,18,.25)}}
 </style>
 </head>
@@ -249,6 +293,8 @@ body{display:flex;flex-direction:column;min-height:100svh}
     </div>
   </div>
 </header>
+
+<div class="sweep" id="sweep" aria-hidden="true"></div>
 
 <main class="page" id="page">
 
@@ -294,8 +340,8 @@ body{display:flex;flex-direction:column;min-height:100svh}
     <div class="bar">
       <span class="label status"><i class="dot"></i>Victor Adisa — available</span>
       <div class="tabs" role="tablist" aria-label="Sections">
-        <button class="tab" role="tab" aria-selected="true"  aria-controls="p1" id="t1"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2zM14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14z"/></svg>Resume</button>
-        <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4.5h4l1.5 2H14V13H2z"/></svg>Work</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="p1" id="t1"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2zM14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14z"/></svg>Resume</button>
+        <button class="tab" role="tab" aria-selected="true"  aria-controls="p2" id="t2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4.5h4l1.5 2H14V13H2z"/></svg>Work</button>
         <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12v8H2z"/><path d="m2 4.6 6 4 6-4"/></svg>Contact</button>
       </div>
       <button class="close" id="close">Close</button>
@@ -304,7 +350,7 @@ body{display:flex;flex-direction:column;min-height:100svh}
     <div class="panels">
 
       <!-- 01 RESUME -->
-      <article class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+      <article class="panel" id="p1" role="tabpanel" aria-labelledby="t1" hidden>
         <h2><i class="dot"></i>01 / Resume &amp; profile</h2>
 
         <div class="figs">
@@ -354,35 +400,39 @@ body{display:flex;flex-direction:column;min-height:100svh}
       </article>
 
       <!-- 02 WORK -->
-      <article class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <article class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
         <h2><i class="dot"></i>02 / Selected work</h2>
 
-        <a class="item" href="https://meiborg.com/owner-ops/">
-          <span class="meta">meiborg.com/owner-ops · Landing page</span>
-          <h3>Owner Operator Campaign</h3>
-          <p>Recruitment landing page for a national driver campaign — custom form, conversion tracking and Google Ads integration.</p>
-          <span class="go">View live page</span>
-        </a>
-        <a class="item" href="https://meiborg.com">
-          <span class="meta">meiborg.com · Corporate site</span>
-          <h3>Meiborg Companies</h3>
-          <p>Full website management for a multi-brand logistics group — SEO landing pages, content updates, forms and performance work.</p>
-          <span class="go">View live site</span>
-        </a>
-        <a class="item" href="https://www.youtube.com/shorts/KV-LHLdIgjk">
-          <span class="meta">Short-form edit · Concept to publish</span>
-          <h3>Reel — full edit</h3>
-          <p>Shot, cut, captioned and published. One format in this series drove a record month for the brand.</p>
-          <span class="go">Watch on YouTube</span>
-        </a>
-        <a class="item" href="https://www.youtube.com/shorts/Nd7HS27lHdY">
-          <span class="meta">Short-form edit · Motion &amp; pacing</span>
-          <h3>Reel — motion cut</h3>
-          <p>Pacing-led edit built for retention in the first three seconds.</p>
-          <span class="go">Watch on YouTube</span>
-        </a>
+        <p class="label" style="margin-bottom:.8rem">Reels — plays here</p>
+        <div class="reels">
+          <div class="reel" data-yt="KV-LHLdIgjk">
+            <img src="images/yt-KV-LHLdIgjk.jpg" alt="Short-form edit, concept to publish" width="303" height="540" loading="lazy">
+            <button class="play" aria-label="Play reel — concept to publish"><span></span></button>
+          </div>
+          <div class="reel" data-yt="Nd7HS27lHdY">
+            <img src="images/yt-Nd7HS27lHdY.jpg" alt="Short-form edit, motion and pacing" width="303" height="540" loading="lazy">
+            <button class="play" aria-label="Play reel — motion and pacing"><span></span></button>
+          </div>
+        </div>
+        <p class="note">Shot, cut, captioned and published. One format in this series drove a record month.</p>
 
-        <p class="note">Clients include Meiborg Companies, Coach Dr J, Websterberry Marketing, Nourished by Faith Wellness, Tabatha Nichols Personal Brand and Ignite Funnels.</p>
+        <p class="label" style="margin:1.75rem 0 .8rem">Sites — previews here</p>
+
+        <div class="site" data-src="https://meiborg.com/owner-ops/">
+          <div class="chrome"><i></i><i></i><i></i><span>Recruitment landing page</span></div>
+          <div class="viewport"><button class="load">Load live preview</button></div>
+        </div>
+        <h3 style="margin-top:.7rem">Owner Operator Campaign</h3>
+        <p class="note" style="margin-top:.3rem">Recruitment landing page for a national driver campaign — custom form, conversion tracking and Google Ads integration.</p>
+
+        <div class="site" data-src="https://meiborg.com" style="margin-top:1.5rem">
+          <div class="chrome"><i></i><i></i><i></i><span>Multi-brand corporate site</span></div>
+          <div class="viewport"><button class="load">Load live preview</button></div>
+        </div>
+        <h3 style="margin-top:.7rem">Logistics group — full site management</h3>
+        <p class="note" style="margin-top:.3rem">SEO landing pages, content updates, forms and performance work across a multi-brand group.</p>
+
+        <p class="note" style="margin-top:1.5rem">Clients include Meiborg Companies, Coach Dr J, Websterberry Marketing, Nourished by Faith Wellness, Tabatha Nichols Personal Brand and Ignite Funnels.</p>
       </article>
 
       <!-- 03 CONTACT -->
@@ -427,12 +477,19 @@ body{display:flex;flex-direction:column;min-height:100svh}
       } else { p.hidden=false; }
     });
   }
+  var card=document.querySelector('.card'), sweep=document.getElementById('sweep'),
+      reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
   function setOpen(on){
     page.classList.toggle('is-open', on);
     open.setAttribute('aria-expanded', on?'true':'false');
-    if(on){ show(0); close.focus(); } else { open.focus(); }
+    if(on){ show(1); close.focus(); } else { card.classList.remove('is-leaving'); open.focus(); }
   }
-  open.addEventListener('click', function(){ setOpen(true); });
+  open.addEventListener('click', function(){
+    if(reduce.matches){ setOpen(true); return; }
+    card.classList.add('is-leaving');
+    sweep.classList.remove('go'); void sweep.offsetWidth; sweep.classList.add('go');
+    setTimeout(function(){ setOpen(true); }, 240);
+  });
   close.addEventListener('click', function(){ setOpen(false); });
   tabs.forEach(function(t,i){
     t.addEventListener('click', function(){ show(i); });
@@ -445,6 +502,33 @@ body{display:flex;flex-direction:column;min-height:100svh}
   document.addEventListener('keydown', function(e){
     if(e.key==='Escape' && page.classList.contains('is-open')) setOpen(false);
   });
+  /* ---- reels play in place, never off-page ---- */
+  [].forEach.call(document.querySelectorAll('.reel'), function(reel){
+    var btn=reel.querySelector('.play');
+    btn.addEventListener('click', function(){
+      var id=reel.getAttribute('data-yt');
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1';
+      f.title='Reel'; f.allow='autoplay; encrypted-media; picture-in-picture';
+      f.setAttribute('allowfullscreen','');
+      reel.innerHTML=''; reel.appendChild(f);
+    });
+  });
+
+  /* ---- client sites preview inside the page ---- */
+  [].forEach.call(document.querySelectorAll('.site'), function(site){
+    var btn=site.querySelector('.load'), vp=site.querySelector('.viewport');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var f=document.createElement('iframe');
+      f.src=site.getAttribute('data-src');
+      f.title='Live preview'; f.loading='lazy';
+      f.setAttribute('referrerpolicy','no-referrer');
+      f.setAttribute('sandbox','allow-scripts allow-same-origin');
+      vp.innerHTML=''; vp.appendChild(f); vp.classList.add('is-live');
+    });
+  });
+
   /* ---- three-second test ---- */
   var field=document.getElementById('field'), target=document.getElementById('target'),
       msg=document.getElementById('msg'), start=document.getElementById('start'),
