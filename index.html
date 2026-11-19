@@ -202,18 +202,13 @@ body{display:flex;flex-direction:column;min-height:100svh}
   border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
 
 /* ---------- site previews: live, inside the page ---------- */
-.site{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0c0c0c}
+.site{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0c0c0c;margin:0}
 .chrome{display:flex;align-items:center;gap:.4rem;padding:.5rem .7rem;
   border-bottom:1px solid var(--line);background:#121212}
 .chrome i{width:7px;height:7px;border-radius:50%;background:#2e2e2e;flex:none}
 .chrome span{margin-left:.5rem;font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--label)}
-.viewport{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
-.viewport iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
-.load{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--bright);background:none;border:1px solid var(--line);border-radius:2px;
-  padding:.6rem .9rem;cursor:pointer;transition:color .2s,border-color .2s}
-.viewport.is-live{height:380px}
+.site img{width:100%;display:block}
 
 /* ---------- opening effect ---------- */
 .card{transition:opacity .3s ease,transform .3s ease}
@@ -247,7 +242,6 @@ body{display:flex;flex-direction:column;min-height:100svh}
 
 @media(hover:hover){
   .play:hover{background:rgba(10,10,10,.05)}
-  .load:hover{color:#fff;border-color:var(--red)}
   .test-btn:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
   .btn:hover{opacity:.85}
   .links a:hover,.go:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
@@ -418,21 +412,21 @@ body{display:flex;flex-direction:column;min-height:100svh}
 
         <p class="label" style="margin:1.75rem 0 .8rem">Sites — previews here</p>
 
-        <div class="site" data-src="https://meiborg.com/owner-ops/">
+        <figure class="site">
           <div class="chrome"><i></i><i></i><i></i><span>Recruitment landing page</span></div>
-          <div class="viewport"><button class="load">Load live preview</button></div>
-        </div>
+          <img src="images/work-a.jpg" alt="Recruitment landing page: a large incentive figure, owner-operator headline and an apply card" width="760" height="356" loading="lazy">
+        </figure>
         <h3 style="margin-top:.7rem">Owner Operator Campaign</h3>
         <p class="note" style="margin-top:.3rem">Recruitment landing page for a national driver campaign — custom form, conversion tracking and Google Ads integration.</p>
 
-        <div class="site" data-src="https://meiborg.com" style="margin-top:1.5rem">
+        <figure class="site" style="margin-top:1.5rem">
           <div class="chrome"><i></i><i></i><i></i><span>Multi-brand corporate site</span></div>
-          <div class="viewport"><button class="load">Load live preview</button></div>
-        </div>
+          <img src="images/work-b.jpg" alt="Corporate site hero: full-bleed fleet photography with a bold two-line headline" width="760" height="306" loading="lazy">
+        </figure>
         <h3 style="margin-top:.7rem">Logistics group — full site management</h3>
         <p class="note" style="margin-top:.3rem">SEO landing pages, content updates, forms and performance work across a multi-brand group.</p>
 
-        <p class="note" style="margin-top:1.5rem">Clients include Meiborg Companies, Coach Dr J, Websterberry Marketing, Nourished by Faith Wellness, Tabatha Nichols Personal Brand and Ignite Funnels.</p>
+        <p class="note" style="margin-top:1.5rem">Client names and logos are obscured — these are live commercial sites I still work on. Happy to walk through any of them on a call.</p>
       </article>
 
       <!-- 03 CONTACT -->
@@ -512,20 +506,6 @@ body{display:flex;flex-direction:column;min-height:100svh}
       f.title='Reel'; f.allow='autoplay; encrypted-media; picture-in-picture';
       f.setAttribute('allowfullscreen','');
       reel.innerHTML=''; reel.appendChild(f);
-    });
-  });
-
-  /* ---- client sites preview inside the page ---- */
-  [].forEach.call(document.querySelectorAll('.site'), function(site){
-    var btn=site.querySelector('.load'), vp=site.querySelector('.viewport');
-    if(!btn) return;
-    btn.addEventListener('click', function(){
-      var f=document.createElement('iframe');
-      f.src=site.getAttribute('data-src');
-      f.title='Live preview'; f.loading='lazy';
-      f.setAttribute('referrerpolicy','no-referrer');
-      f.setAttribute('sandbox','allow-scripts allow-same-origin');
-      vp.innerHTML=''; vp.appendChild(f); vp.classList.add('is-live');
     });
   });
 
