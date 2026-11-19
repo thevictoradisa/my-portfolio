@@ -14,135 +14,316 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   VICTOR ADISA — single screen
-   One card. Nothing to scroll. Six text styles, three links.
+   VICTOR ADISA — card that opens into a three-panel record
+   Collapsed: one screen. Expanded: resume, work, contact.
    ============================================================ */
 :root{
   --bg:#0a0a0a;
-  /* Grey ladder — every step that carries text clears AA (4.5:1)
-     composited on #0a0a0a. Ratios measured, not estimated. */
-  --white:rgba(255,255,255,1);   /* 19.80:1  wordmark          */
-  --bright:rgba(255,255,255,.88);/* 15.28:1  the figure         */
-  --body:rgba(255,255,255,.70);  /*  9.76:1  the one prose line */
-  --mid:rgba(255,255,255,.58);   /*  6.86:1  link row           */
-  --label:rgba(255,255,255,.50); /*  5.29:1  mono labels        */
-  --line:rgba(255,255,255,.10);  /*  borders only, never text   */
+  --white:rgba(255,255,255,1);    /* 19.80:1 */
+  --bright:rgba(255,255,255,.88); /* 15.28:1 */
+  --body:rgba(255,255,255,.70);   /*  9.76:1 */
+  --mid:rgba(255,255,255,.58);    /*  6.86:1 */
+  --label:rgba(255,255,255,.50);  /*  5.29:1 */
+  --line:rgba(255,255,255,.10);   /* borders only */
+  --panel:#0e0e0e;
   --red:#e31212;
-
   --fh:'Syne',sans-serif;
   --fb:'Inter',system-ui,-apple-system,sans-serif;
   --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{
-  background:var(--bg);color:var(--body);
-  font-family:var(--fb);font-size:15px;line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-}
+body{background:var(--bg);color:var(--body);font-family:var(--fb);
+  font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--red);color:#fff}
+:is(a,button):focus-visible{outline:2px solid var(--red);outline-offset:4px;border-radius:2px}
 
-/* page container: 1280px, 24px padding, centred on both axes */
-.page{
-  max-width:1280px;margin:0 auto;padding:24px;
-  min-height:100svh;display:flex;align-items:center;justify-content:center;
-}
+.label{font-family:var(--fm);font-weight:400;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--label)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--red);
+  display:inline-block;flex:none;margin-right:.6rem}
 
-/* the one card */
-.card{
-  width:100%;max-width:448px;text-align:center;
-  display:flex;flex-direction:column;align-items:center;
-}
+/* ---------- shell ---------- */
+.page{max-width:1280px;margin:0 auto;padding:24px;
+  min-height:100svh;display:flex;align-items:center;justify-content:center}
+.page.is-open{align-items:flex-start;padding-top:32px}
 
-/* 1 — availability */
-.status{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--fm);font-weight:400;font-size:11px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--label);
-}
-.status i{width:5px;height:5px;border-radius:50%;background:var(--red);flex:none}
-
-/* 2 — portrait */
+/* ---------- collapsed card ---------- */
+.card{width:100%;max-width:448px;text-align:center;
+  display:flex;flex-direction:column;align-items:center}
+.is-open .card{display:none}
 .shot{margin-top:2rem;width:200px}
-.shot img{width:100%}
-
-/* 3 — wordmark */
-.mark{
-  font-family:var(--fh);font-weight:800;color:var(--white);
-  font-size:34px;letter-spacing:-.03em;line-height:1;margin-top:1.5rem;
-}
-
-/* 4 — one line of prose */
+.mark{font-family:var(--fh);font-weight:800;color:var(--white);
+  font-size:34px;letter-spacing:-.03em;line-height:1;margin-top:1.5rem}
 .line{margin-top:1rem;max-width:34ch;color:var(--body)}
-
-/* 5 — one credential, a single figure */
-.cred{
-  margin-top:1.5rem;font-family:var(--fm);font-weight:500;font-size:11px;
+.cred{margin-top:1.5rem;font-family:var(--fm);font-weight:500;font-size:11px;
   letter-spacing:.18em;text-transform:uppercase;color:var(--bright);
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:.8rem 0;width:100%;
-}
-
-/* 6 — the single CTA */
-.btn{
-  margin-top:1.75rem;width:100%;
-  display:inline-block;font-family:var(--fb);font-weight:500;font-size:15px;
+  padding:.8rem 0;width:100%}
+.btn{display:inline-block;font-family:var(--fb);font-weight:500;font-size:15px;
   color:#fff;background:var(--red);padding:.95rem 1.5rem;border-radius:2px;
-  transition:opacity .2s ease;
-}
-
-/* 7 — small links */
+  border:0;cursor:pointer;width:100%;margin-top:1.75rem;transition:opacity .2s ease}
 .links{margin-top:1.5rem;display:flex;gap:1.75rem;justify-content:center}
-.links a{
-  font-family:var(--fm);font-weight:400;font-size:11px;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--mid);
-  padding-bottom:2px;border-bottom:1px solid var(--line);
-  transition:color .2s ease,border-color .2s ease;
-}
+.links a{font-family:var(--fm);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mid);padding-bottom:2px;
+  border-bottom:1px solid var(--line);transition:color .2s ease,border-color .2s ease}
 
-/* hover only where a pointer can actually hover */
+/* ---------- expanded record ---------- */
+.record{display:none;width:100%}
+.is-open .record{display:block;animation:rise .45s cubic-bezier(.2,.7,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.bar{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;
+  border:1px solid var(--line);border-radius:3px;padding:.85rem 1.1rem}
+.bar .status{display:flex;align-items:center}
+.tabs{display:flex;gap:.3rem}
+.tab{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--label);background:none;border:1px solid transparent;border-radius:2px;
+  padding:.45rem .85rem;cursor:pointer;transition:color .2s,border-color .2s}
+.tab[aria-selected="true"]{color:var(--white);border-color:var(--line)}
+.close{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--label);background:none;border:1px solid var(--line);border-radius:2px;
+  padding:.45rem .85rem;cursor:pointer;transition:color .2s,border-color .2s}
+
+.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;margin-top:1rem;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:1.5rem}
+.panel h2{font-family:var(--fm);font-weight:500;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--mid);margin-bottom:1.25rem;
+  display:flex;align-items:center}
+.panel h3{font-family:var(--fb);font-weight:500;font-size:15px;color:var(--white);line-height:1.3}
+
+/* figures */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.5rem}
+.fig b{display:block;font-family:var(--fh);font-weight:700;font-size:21px;
+  color:var(--white);letter-spacing:-.02em;line-height:1}
+.fig span{display:block;margin-top:.3rem;font-family:var(--fm);font-size:9.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+
+/* role chronicle — no dates, by request */
+.role{padding:1rem 0;border-top:1px solid var(--line)}
+.role .org{display:block;margin-top:.2rem;font-family:var(--fm);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.role p{margin-top:.5rem;font-size:13.5px;color:var(--mid);line-height:1.6}
+
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.chip{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;color:var(--label);
+  border:1px solid var(--line);border-radius:2px;padding:.3rem .5rem}
+
+.item{display:block;padding:1rem 0;border-top:1px solid var(--line)}
+.item .meta{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--label);margin-bottom:.35rem}
+.item p{margin-top:.4rem;font-size:13.5px;color:var(--mid);line-height:1.6}
+.go{display:inline-block;margin-top:.6rem;font-family:var(--fm);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--bright);
+  border-bottom:1px solid var(--line);padding-bottom:2px}
+
+.contact-row{display:block;padding:.9rem 0;border-top:1px solid var(--line);
+  font-family:var(--fm);font-size:12px;color:var(--bright);word-break:break-word}
+.contact-row .k{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--label);margin-bottom:.25rem}
+.panel .btn{margin-top:1.25rem}
+.note{margin-top:1rem;font-size:12.5px;color:var(--label);line-height:1.55}
+
 @media(hover:hover){
   .btn:hover{opacity:.85}
-  .links a:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
+  .links a:hover,.go:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
+  .tab:hover,.close:hover{color:var(--white);border-color:var(--line)}
+  a.item:hover .go{border-color:rgba(255,255,255,.4)}
 }
-a:focus-visible{outline:2px solid var(--red);outline-offset:4px;border-radius:2px}
 
+/* one panel at a time below 900px, driven by the tabs */
+@media(max-width:900px){
+  .panels{grid-template-columns:1fr}
+  .panel[hidden]{display:none}
+}
+@media(min-width:901px){
+  .panel[hidden]{display:block}
+}
 @media(max-width:420px){
   .mark{font-size:26px}
   .shot{width:168px}
+  .figs{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<main class="page">
+<main class="page" id="page">
+
+  <!-- ─────────── collapsed ─────────── -->
   <article class="card">
-
-    <p class="status"><i></i>Available for new projects</p>
-
+    <p class="label"><i class="dot"></i>Available for new projects</p>
     <figure class="shot">
       <img src="images/victor-cutout.webp" alt="Victor Adisa" width="620" height="784">
     </figure>
-
     <h1 class="mark">VICTOR ADISA</h1>
-
     <p class="line">Strategy, content, video, design, websites, ads and analytics — all under one roof.</p>
-
     <p class="cred">5.2M impressions generated in 7 months</p>
-
-    <a class="btn" href="https://calendly.com/adisavictor4/30min">Book a free strategy call</a>
-
+    <button class="btn" id="open" aria-expanded="false" aria-controls="record">Get to know Victor Adisa</button>
     <nav class="links">
       <a href="https://www.instagram.com/thevictoradisa">Instagram</a>
       <a href="https://www.linkedin.com/in/victor-adisa-4a1778222">LinkedIn</a>
     </nav>
-
   </article>
+
+  <!-- ─────────── expanded ─────────── -->
+  <section class="record" id="record" aria-label="Full record">
+
+    <div class="bar">
+      <span class="label status"><i class="dot"></i>Victor Adisa — available</span>
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <button class="tab" role="tab" aria-selected="true"  aria-controls="p1" id="t1">Resume</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">Work</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">Contact</button>
+      </div>
+      <button class="close" id="close">Close</button>
+    </div>
+
+    <div class="panels">
+
+      <!-- 01 RESUME -->
+      <article class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+        <h2><i class="dot"></i>01 / Resume &amp; profile</h2>
+
+        <div class="figs">
+          <div class="fig"><b>5.2M</b><span>Impressions · 7 months</span></div>
+          <div class="fig"><b>7.1M</b><span>Ad impressions</span></div>
+          <div class="fig"><b>12,330</b><span>Combined followers</span></div>
+          <div class="fig"><b>6</b><span>Brands supported</span></div>
+        </div>
+
+        <p style="font-size:13.5px;color:var(--mid)">Marketer who builds the whole engine — strategy, content, design and the code underneath it. Trained in marketing, working across social, paid media and the websites that carry them.</p>
+
+        <div class="role">
+          <h3>Social Media Strategist</h3><span class="org">Coach Dr J · Dallas, Texas</span>
+          <p>Content strategy across platforms, graphic design, short-form video and educational content. Planning, scheduling and publishing, supporting audience growth and product launches.</p>
+        </div>
+        <div class="role">
+          <h3>Social Media Marketing Strategist</h3><span class="org">Meiborg Companies</span>
+          <p>Leads social strategy and content planning. Branded content, marketing graphics, video and campaign assets, with performance monitoring feeding the next cycle.</p>
+        </div>
+        <div class="role">
+          <h3>Personal Digital Assistant to the CMO</h3><span class="org">Meiborg Companies</span>
+          <p>Executive support to the Chief Marketing Officer. Email and correspondence, website content across company platforms, and coordination of digital projects.</p>
+        </div>
+        <div class="role">
+          <h3>Digital Marketing Specialist</h3><span class="org">Websterberry Marketing</span>
+          <p>Digital strategy across social and web, working with designers and writers on converting content, influencer campaigns, analytics and SEO.</p>
+        </div>
+        <div class="role">
+          <h3>Social Media Manager</h3><span class="org">Nourished by Faith Wellness</span>
+          <p>Content strategy for Instagram, Facebook and Pinterest. Paid campaigns through Meta Ads Manager, scheduled cadence via Buffer, creative built in Canva.</p>
+        </div>
+        <div class="role">
+          <h3>Virtual Assistant</h3><span class="org">Tabatha Nichols Personal Brand</span>
+          <p>Full podcast production workflow — editing, scheduling and repurposing episodes into social clips — alongside inbox, calendar and digital asset management.</p>
+        </div>
+        <div class="role">
+          <h3>B.Sc. Marketing</h3><span class="org">Lead City University · Ibadan, Nigeria</span>
+        </div>
+
+        <div class="chips">
+          <span class="chip">Meta Ads Manager</span><span class="chip">Google Analytics</span>
+          <span class="chip">Canva</span><span class="chip">Buffer</span><span class="chip">Mailchimp</span>
+          <span class="chip">Trello</span><span class="chip">Notion</span><span class="chip">CapCut</span>
+          <span class="chip">Adobe Express</span><span class="chip">Audacity</span>
+          <span class="chip">Google Workspace</span><span class="chip">WordPress</span>
+        </div>
+      </article>
+
+      <!-- 02 WORK -->
+      <article class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+        <h2><i class="dot"></i>02 / Selected work</h2>
+
+        <a class="item" href="https://meiborg.com/owner-ops/">
+          <span class="meta">meiborg.com/owner-ops · Landing page</span>
+          <h3>Owner Operator Campaign</h3>
+          <p>Recruitment landing page for a national driver campaign — custom form, conversion tracking and Google Ads integration.</p>
+          <span class="go">View live page</span>
+        </a>
+        <a class="item" href="https://meiborg.com">
+          <span class="meta">meiborg.com · Corporate site</span>
+          <h3>Meiborg Companies</h3>
+          <p>Full website management for a multi-brand logistics group — SEO landing pages, content updates, forms and performance work.</p>
+          <span class="go">View live site</span>
+        </a>
+        <a class="item" href="https://www.youtube.com/shorts/KV-LHLdIgjk">
+          <span class="meta">Short-form edit · Concept to publish</span>
+          <h3>Reel — full edit</h3>
+          <p>Shot, cut, captioned and published. One format in this series drove a record month for the brand.</p>
+          <span class="go">Watch on YouTube</span>
+        </a>
+        <a class="item" href="https://www.youtube.com/shorts/Nd7HS27lHdY">
+          <span class="meta">Short-form edit · Motion &amp; pacing</span>
+          <h3>Reel — motion cut</h3>
+          <p>Pacing-led edit built for retention in the first three seconds.</p>
+          <span class="go">Watch on YouTube</span>
+        </a>
+
+        <p class="note">Clients include Meiborg Companies, Coach Dr J, Websterberry Marketing, Nourished by Faith Wellness, Tabatha Nichols Personal Brand and Ignite Funnels.</p>
+      </article>
+
+      <!-- 03 CONTACT -->
+      <article class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+        <h2><i class="dot"></i>03 / Contact &amp; bookings</h2>
+
+        <p style="font-size:13.5px;color:var(--mid)">A free 30-minute call. We map what your brand needs to grow — no pitch deck, no pressure.</p>
+
+        <a class="btn" href="https://calendly.com/adisavictor4/30min">Book a free strategy call</a>
+
+        <span class="contact-row"><span class="k">Email</span>adisavictor4@gmail.com</span>
+        <a class="contact-row" href="https://www.instagram.com/thevictoradisa"><span class="k">Instagram</span>@thevictoradisa</a>
+        <a class="contact-row" href="https://www.linkedin.com/in/victor-adisa-4a1778222"><span class="k">LinkedIn</span>victor-adisa</a>
+        <span class="contact-row"><span class="k">Based in</span>Lagos, Nigeria</span>
+
+        <p class="note">Strategy, content, video, design, web development, paid advertising and analytics — handled by one person, so the brief never gets lost between departments.</p>
+      </article>
+
+    </div>
+  </section>
 </main>
 
+<script>
+(function(){
+  'use strict';
+  var page=document.getElementById('page'),
+      open=document.getElementById('open'),
+      close=document.getElementById('close'),
+      tabs=[].slice.call(document.querySelectorAll('.tab')),
+      panels=[].slice.call(document.querySelectorAll('.panel')),
+      narrow=window.matchMedia('(max-width:900px)');
+
+  function show(i){
+    tabs.forEach(function(t,n){ t.setAttribute('aria-selected', n===i?'true':'false'); });
+    panels.forEach(function(p,n){ if(narrow.matches){ p.hidden = n!==i; } else { p.hidden=false; } });
+  }
+  function setOpen(on){
+    page.classList.toggle('is-open', on);
+    open.setAttribute('aria-expanded', on?'true':'false');
+    if(on){ show(0); close.focus(); } else { open.focus(); }
+  }
+  open.addEventListener('click', function(){ setOpen(true); });
+  close.addEventListener('click', function(){ setOpen(false); });
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(i); });
+    t.addEventListener('keydown', function(e){
+      var d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return; e.preventDefault();
+      var n=(i+d+tabs.length)%tabs.length; tabs[n].focus(); show(n);
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && page.classList.contains('is-open')) setOpen(false);
+  });
+  narrow.addEventListener('change', function(){
+    var i=tabs.findIndex(function(t){return t.getAttribute('aria-selected')==='true';});
+    show(i<0?0:i);
+  });
+})();
+</script>
 </body>
 </html>
