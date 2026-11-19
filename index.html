@@ -19,10 +19,16 @@
    ============================================================ */
 :root{
   --bg:#0a0a0a;
-  --white:#ffffff;              /* headlines only          */
-  --body:rgba(255,255,255,.70); /* body copy               */
-  --label:rgba(255,255,255,.45);/* mono labels, metadata   */
-  --line:rgba(255,255,255,.10);
+  /* Grey ladder. Every step that carries text clears WCAG AA (4.5:1)
+     on #0a0a0a; ratios are the composited value, measured not guessed.
+     Steps descend monotonically — no step is dimmer than the one above. */
+  --white:rgba(255,255,255,1);   /* 19.80:1  headlines            */
+  --bright:rgba(255,255,255,.88);/* 15.28:1  emphasis, figures    */
+  --body:rgba(255,255,255,.70);  /*  9.76:1  body copy            */
+  --mid:rgba(255,255,255,.58);   /*  6.86:1  secondary, captions  */
+  --label:rgba(255,255,255,.50); /*  5.29:1  mono labels (was .45
+                                    at 4.48:1, which failed AA)   */
+  --line:rgba(255,255,255,.10);  /* borders only — never text     */
   --red:#e31212;
 
   --fh:'Syne',sans-serif;
@@ -59,7 +65,7 @@ h1{font-size:clamp(2.6rem,6.4vw,4.6rem)}
 h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.12}
 h3{font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.3;letter-spacing:-.02em}
 p{max-width:var(--measure)}
-strong{font-weight:500;color:rgba(255,255,255,.88)}
+strong{font-weight:500;color:var(--bright)}
 
 /* ---------- rhythm: one idea per viewport ---------- */
 section{padding:var(--gap) 0}
@@ -73,9 +79,7 @@ section{padding:var(--gap) 0}
   color:#fff;background:var(--red);padding:1rem 1.9rem;border-radius:2px;
   transition:opacity .2s ease;
 }
-.btn:hover{opacity:.85}
 .btn.quiet{background:transparent;color:var(--white);border:1px solid var(--line);padding:.95rem 1.85rem}
-.btn.quiet:hover{border-color:rgba(255,255,255,.3);opacity:1}
 
 /* ---------- header ---------- */
 .top{padding:2rem 0;border-bottom:1px solid var(--line)}
@@ -102,7 +106,7 @@ section{padding:var(--gap) 0}
   display:block;font-family:var(--fh);font-weight:700;color:var(--white);
   font-size:clamp(2rem,3.6vw,2.9rem);letter-spacing:-.03em;line-height:1;
 }
-.fig span{display:block;margin-top:.7rem;font-size:.9rem;color:var(--body);max-width:30ch}
+.fig span{display:block;margin-top:.7rem;font-size:.9rem;color:var(--mid);max-width:30ch}
 
 /* ---------- plain lists / rules ---------- */
 .rules{border-top:1px solid var(--line);margin-top:3rem}
@@ -112,7 +116,7 @@ section{padding:var(--gap) 0}
 }
 .rule-item p{margin-top:.7rem;font-size:.95rem}
 .pair{border-bottom:1px solid var(--line);padding:1.1rem 0;display:flex;justify-content:space-between;gap:2rem;align-items:baseline}
-.pair span:last-child{font-family:var(--fm);font-size:.82rem;color:var(--white);text-align:right}
+.pair span:last-child{font-family:var(--fm);font-size:.82rem;color:var(--bright);text-align:right}
 
 /* ---------- media ---------- */
 .shot{margin-top:2.5rem}
@@ -126,15 +130,20 @@ section{padding:var(--gap) 0}
 .work-item h3{margin:.9rem 0 .7rem}
 .work-item p{font-size:.95rem}
 .work-item .go{display:inline-block;margin-top:1.1rem;font-family:var(--fm);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border-bottom:1px solid var(--line);padding-bottom:.25rem}
-a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
 
 /* ---------- footer ---------- */
 .foot{border-top:1px solid var(--line);padding:3.5rem 0 4.5rem}
 .foot-in{display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem;justify-content:space-between;align-items:baseline}
 .foot a{font-family:var(--fm);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
-.foot a:hover{color:var(--white)}
 .foot-links{display:flex;flex-wrap:wrap;gap:1.5rem}
 
+/* hover effects only where a pointer can actually hover */
+@media(hover:hover){
+  .btn:hover{opacity:.85}
+  .btn.quiet:hover{border-color:rgba(255,255,255,.3);opacity:1}
+  .foot a:hover{color:var(--white)}
+  a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
+}
 @media(max-width:640px){
   .rule-item{grid-template-columns:1fr;gap:.6rem}
   .pair{flex-direction:column;gap:.3rem}
@@ -171,18 +180,6 @@ a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
       <img src="images/victor-cutout.png" alt="Victor Adisa" width="900" height="1138" loading="lazy">
       <figcaption class="label">Victor Adisa — Strategy, content, design, code</figcaption>
     </figure>
-  </div>
-</section>
-
-<!-- ───────────── NUMBERS (moved out of the hero) ───────────── -->
-<section>
-  <div class="wrap">
-    <span class="label">At a glance</span>
-    <div class="row" style="margin-top:2.6rem">
-      <div class="fig"><span class="label">Impressions generated</span><b>5.2M</b></div>
-      <div class="fig"><span class="label">Views on one reel</span><b>4.7M</b></div>
-      <div class="fig"><span class="label">Follower growth</span><b>+35%</b></div>
-    </div>
   </div>
 </section>
 
@@ -300,7 +297,7 @@ a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
   <div class="wrap head">
     <span class="label">Video editing &amp; production</span>
     <h2 class="measure">Content that gets watched.</h2>
-    <p>A few of many short-form videos edited and produced — one of these formats drove 4.7M views in a single month.</p>
+    <p>A few of many short-form videos edited and produced — one of these formats drove the record month shown above.</p>
 
     <figure class="shot">
       <div class="embed"><iframe src="https://www.youtube.com/embed/KV-LHLdIgjk" title="Short-form edit — concept to publish" loading="lazy" allowfullscreen></iframe></div>
@@ -322,7 +319,6 @@ a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
 
     <div class="row" style="margin-top:4rem">
       <div class="fig"><span class="label">Total combined followers</span><b>12,330</b><span>+1,876 net new across 4 platforms — an 18% jump in 7 months</span></div>
-      <div class="fig"><span class="label">Total impressions</span><b>5.2M</b><span>Across Facebook, Instagram, LinkedIn &amp; YouTube combined</span></div>
       <div class="fig"><span class="label">YouTube video views</span><b>+1,361%</b><span>36.6K views in a single month, driven by targeted ad strategy</span></div>
       <div class="fig"><span class="label">Website page views</span><b>+122%</b><span>12.7K page views with direct + organic traffic leading all sources</span></div>
     </div>
@@ -330,7 +326,6 @@ a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
     <p class="label" style="margin-top:4rem">Platform growth over the same period</p>
     <div class="rules" style="margin-top:1.5rem">
       <div class="pair"><span>Facebook impressions</span><span>128K → 1.47M / month</span></div>
-      <div class="pair"><span>Facebook followers</span><span>+35% growth</span></div>
       <div class="pair"><span>LinkedIn reach</span><span>+65% best month</span></div>
       <div class="pair"><span>Website active users</span><span>596 → 976 / week at peak</span></div>
     </div>
