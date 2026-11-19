@@ -9,1171 +9,401 @@
 <meta property="og:title" content="Victor Adisa — one person, a full marketing agency">
 <meta property="og:description" content="Social media, content, paid media and brand marketing — one point of contact for every department.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   VIKADY — restraint pass
+   One idea per viewport. Three type roles, three greys, red twice.
+   ============================================================ */
+:root{
+  --bg:#0a0a0a;
+  --white:#ffffff;              /* headlines only          */
+  --body:rgba(255,255,255,.70); /* body copy               */
+  --label:rgba(255,255,255,.45);/* mono labels, metadata   */
+  --line:rgba(255,255,255,.10);
+  --red:#e31212;
+
+  --fh:'Syne',sans-serif;
+  --fb:'Inter',system-ui,-apple-system,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --gap:clamp(6rem,12vw,10rem);   /* space between ideas */
+  --measure:720px;                /* text never wider    */
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--body);
+  font-family:var(--fb);font-weight:300;
+  font-size:clamp(15px,1.05vw,16.5px);line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:#fff}
+
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(1.5rem,5vw,3rem)}
+.measure{max-width:var(--measure)}
+
+/* ---------- type roles ---------- */
+.label{
+  font-family:var(--fm);font-weight:400;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--label);display:block;
+}
+h1,h2,h3{font-family:var(--fh);color:var(--white);letter-spacing:-.03em;font-weight:700;line-height:1.08}
+h1{font-size:clamp(2.6rem,6.4vw,4.6rem)}
+h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.12}
+h3{font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.3;letter-spacing:-.02em}
+p{max-width:var(--measure)}
+strong{font-weight:500;color:rgba(255,255,255,.88)}
+
+/* ---------- rhythm: one idea per viewport ---------- */
+section{padding:var(--gap) 0}
+.block + .block{margin-top:var(--gap)}
+.head .label{margin-bottom:1.6rem}
+.head h2 + p{margin-top:1.6rem}
+
+/* ---------- the single red CTA ---------- */
+.btn{
+  display:inline-block;font-family:var(--fb);font-weight:500;font-size:.95rem;
+  color:#fff;background:var(--red);padding:1rem 1.9rem;border-radius:2px;
+  transition:opacity .2s ease;
+}
+.btn:hover{opacity:.85}
+.btn.quiet{background:transparent;color:var(--white);border:1px solid var(--line);padding:.95rem 1.85rem}
+.btn.quiet:hover{border-color:rgba(255,255,255,.3);opacity:1}
+
+/* ---------- header ---------- */
+.top{padding:2rem 0;border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.brand{font-family:var(--fh);font-weight:800;font-size:.95rem;letter-spacing:.14em;color:var(--white)}
+.avail{display:inline-flex;align-items:center;gap:.6rem}
+.avail i{width:5px;height:5px;border-radius:50%;background:var(--red);flex:none}
+
+/* ---------- hero: name, one sentence, one button ---------- */
+.hero{padding:clamp(5rem,14vw,9rem) 0 var(--gap)}
+.hero h1{margin:2rem 0}
+.hero p{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--body)}
+.hero .btn{margin-top:2.6rem}
+
+/* ---------- quiet full-width portrait ---------- */
+.portrait{max-width:420px}
+.portrait img{filter:grayscale(1) contrast(1.05);opacity:.92}
+.portrait .label{margin-top:1.2rem}
+
+/* ---------- the numbers row (moved out of the hero) ---------- */
+.row{display:grid;gap:clamp(2rem,5vw,4rem);grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.fig .label{margin-bottom:.7rem}
+.fig b{
+  display:block;font-family:var(--fh);font-weight:700;color:var(--white);
+  font-size:clamp(2rem,3.6vw,2.9rem);letter-spacing:-.03em;line-height:1;
+}
+.fig span{display:block;margin-top:.7rem;font-size:.9rem;color:var(--body);max-width:30ch}
+
+/* ---------- plain lists / rules ---------- */
+.rules{border-top:1px solid var(--line);margin-top:3rem}
+.rule-item{
+  border-bottom:1px solid var(--line);padding:2.2rem 0;
+  display:grid;grid-template-columns:4.5rem 1fr;gap:clamp(1rem,4vw,3rem);align-items:start;
+}
+.rule-item p{margin-top:.7rem;font-size:.95rem}
+.pair{border-bottom:1px solid var(--line);padding:1.1rem 0;display:flex;justify-content:space-between;gap:2rem;align-items:baseline}
+.pair span:last-child{font-family:var(--fm);font-size:.82rem;color:var(--white);text-align:right}
+
+/* ---------- media ---------- */
+.shot{margin-top:2.5rem}
+.shot img{border:1px solid var(--line)}
+.shot .label{margin-top:.9rem}
+.embed{position:relative;padding-top:177.78%;max-width:300px;border:1px solid var(--line)}
+.embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ---------- work links ---------- */
+.work-item{border-bottom:1px solid var(--line);padding:2.6rem 0;display:block}
+.work-item h3{margin:.9rem 0 .7rem}
+.work-item p{font-size:.95rem}
+.work-item .go{display:inline-block;margin-top:1.1rem;font-family:var(--fm);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border-bottom:1px solid var(--line);padding-bottom:.25rem}
+a.work-item:hover .go{border-color:rgba(255,255,255,.4)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--line);padding:3.5rem 0 4.5rem}
+.foot-in{display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem;justify-content:space-between;align-items:baseline}
+.foot a{font-family:var(--fm);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+.foot a:hover{color:var(--white)}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.5rem}
+
+@media(max-width:640px){
+  .rule-item{grid-template-columns:1fr;gap:.6rem}
+  .pair{flex-direction:column;gap:.3rem}
+  .pair span:last-child{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-<style>
-/* ── RESET ELEMENTOR WRAPPERS ── */
-html, body {
-  background-color: #0a0a0a !important;
-  margin: 0 !important; padding: 0 !important;
-}
-.elementor-section-wrap, .elementor-widget-wrap, .elementor-widget-container,
-.elementor, .e-con, .e-con-inner, .elementor-container,
-.elementor-column, .elementor-column-wrap, .elementor-section {
-  background-color: #0a0a0a !important;
-  padding: 0 !important; margin: 0 !important;
-  max-width: 100% !important; width: 100% !important;
-}
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">VIKADY</span>
+    <span class="label avail"><i></i>Available for new projects</span>
+  </div>
+</header>
 
-/* ── ROOT ── */
-#vk *, #vk *::before, #vk *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<main>
 
-#vk {
-  --black: #0a0a0a;
-  --white: #f0efed;
-  --red: #e31212;
-  --mid: #111;
-  --muted: #8a8a8a;
-  --border: #1f1f1f;
-  background: #0a0a0a;
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  width: 100%;
-}
-#vk .inner { max-width: 1150px; margin: 0 auto; }
-#vk .eyebrow {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-size: 0.68rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--red);
-  margin-bottom: 1rem; font-weight: 600;
-}
-#vk .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--red); }
-#vk .h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  font-weight: 800; line-height: 1.06; letter-spacing: -0.02em;
-  color: var(--white); margin-bottom: 1.2rem;
-}
-#vk .h2 em { font-style: normal; color: var(--red); }
-#vk .sub { color: var(--muted); font-size: 0.97rem; line-height: 1.8; max-width: 560px; }
-#vk .btn-r {
-  background: var(--red); color: #fff;
-  padding: 1rem 2.4rem; border-radius: 100px;
-  font-weight: 600; font-size: 0.9rem;
-  text-decoration: none; display: inline-block;
-  transition: transform 0.25s, box-shadow 0.25s;
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0 0 0 0 rgba(227,18,18,0.4);
-}
-#vk .btn-r:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -8px rgba(227,18,18,0.5); color: #fff; }
-#vk .btn-g {
-  border: 1px solid #2c2c2c; color: var(--white);
-  padding: 1rem 2.4rem; border-radius: 100px;
-  font-size: 0.9rem; text-decoration: none; display: inline-block;
-  transition: border-color 0.25s, background 0.25s;
-  font-family: 'Inter', sans-serif;
-}
-#vk .btn-g:hover { border-color: var(--red); background: rgba(227,18,18,0.05); color: var(--white); }
+<!-- ───────────── HERO: name, one sentence, one button ───────────── -->
+<section class="hero">
+  <div class="wrap">
+    <span class="label">Lagos, Nigeria — Marketing</span>
+    <h1 class="measure">One person.<br>A full marketing agency.</h1>
+    <p>Strategy, content, video, design, websites, ads, and analytics — <strong>all under one roof.</strong> I'm Victor Adisa, and working with me means skipping the agency retainer and getting the whole department anyway.</p>
+    <a class="btn" href="https://calendly.com/adisavictor4/30min">Book a free strategy call</a>
+  </div>
+</section>
 
-/* fade-up on scroll */
-#vk .fx { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-#vk .fx.on { opacity: 1; transform: translateY(0); }
-#vk .fx-d1 { transition-delay: 0.1s; }
-#vk .fx-d2 { transition-delay: 0.2s; }
-#vk .fx-d3 { transition-delay: 0.3s; }
+<!-- ───────────── PORTRAIT ───────────── -->
+<section>
+  <div class="wrap">
+    <figure class="portrait">
+      <img src="images/victor-cutout.png" alt="Victor Adisa" width="900" height="1138" loading="lazy">
+      <figcaption class="label">Victor Adisa — Strategy, content, design, code</figcaption>
+    </figure>
+  </div>
+</section>
 
-/* ═══════════════════════════════════════
-   HERO — cutout photo + animated backdrop
-═══════════════════════════════════════ */
-#vk .hero {
-  min-height: 100vh;
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  overflow: hidden;
-  padding: 7rem 6vw 0;
-}
+<!-- ───────────── NUMBERS (moved out of the hero) ───────────── -->
+<section>
+  <div class="wrap">
+    <span class="label">At a glance</span>
+    <div class="row" style="margin-top:2.6rem">
+      <div class="fig"><span class="label">Impressions generated</span><b>5.2M</b></div>
+      <div class="fig"><span class="label">Views on one reel</span><b>4.7M</b></div>
+      <div class="fig"><span class="label">Follower growth</span><b>+35%</b></div>
+    </div>
+  </div>
+</section>
 
-/* animated background layers */
-#vk .hero-bg-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 56px 56px;
-  animation: gridmove 18s linear infinite;
-  pointer-events: none;
-}
-@keyframes gridmove {
-  from { background-position: 0 0; }
-  to { background-position: 56px 56px; }
-}
-#vk .hero-glow {
-  position: absolute; width: 700px; height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(227,18,18,0.16) 0%, transparent 60%);
-  top: 5%; right: -10%;
-  animation: glowfloat 9s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-@keyframes glowfloat {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(-60px, 50px) scale(1.15); }
-}
-#vk .hero-ring {
-  position: absolute;
-  width: 480px; height: 480px;
-  border: 1px solid rgba(227,18,18,0.25);
-  border-radius: 50%;
-  right: 4%; bottom: -5%;
-  animation: ringspin 30s linear infinite;
-  pointer-events: none;
-}
-#vk .hero-ring::before {
-  content: '';
-  position: absolute; top: -5px; left: 50%;
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--red);
-}
-@keyframes ringspin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+<!-- ───────────── CAPABILITIES ───────────── -->
+<section>
+  <div class="wrap">
+    <span class="label">Capabilities</span>
+    <p class="label" style="margin-top:1.4rem;line-height:2.2;max-width:var(--measure);color:var(--body);font-size:11px">
+      Strategy · Content · Video · Design · Web Development · Paid Ads · Analytics · Growth
+    </p>
+  </div>
+</section>
 
-/* giant background word behind photo */
-#vk .hero-word {
-  position: absolute;
-  right: -2%; top: 48%;
-  transform: translateY(-50%);
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(6rem, 18vw, 15rem);
-  font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.06);
-  letter-spacing: -0.02em;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1;
-}
+<!-- ───────────── RESULTS ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Real numbers, real results</span>
+    <h2 class="measure">The kind of results agencies promise.</h2>
+    <div class="row" style="margin-top:4rem">
+      <div class="fig"><span class="label">Total impressions</span><b>5.2M</b><span>Generated across platforms in 7 months</span></div>
+      <div class="fig"><span class="label">Single reel</span><b>4.7M</b><span>Views on a single reel — a record month for the brand</span></div>
+      <div class="fig"><span class="label">Follower growth</span><b>+35%</b><span>Facebook follower growth in one campaign period</span></div>
+      <div class="fig"><span class="label">Website users</span><b>8,053</b><span>Website users driven in a single 11-week window</span></div>
+    </div>
+  </div>
+</section>
 
-#vk .hero-left { position: relative; z-index: 3; padding-bottom: 4rem; }
-#vk .hero-pill {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  background: rgba(227,18,18,0.08); border: 1px solid rgba(227,18,18,0.3);
-  color: var(--red); font-size: 0.7rem; letter-spacing: 0.18em;
-  text-transform: uppercase; padding: 0.5rem 1.2rem; border-radius: 100px;
-  margin-bottom: 2rem; font-weight: 600;
-}
-#vk .hero-pill .dot {
-  width: 7px; height: 7px; border-radius: 50%; background: var(--red);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(227,18,18,0.6); }
-  50% { box-shadow: 0 0 0 7px rgba(227,18,18,0); }
-}
-#vk .hero-left h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.6rem, 6vw, 5.2rem);
-  font-weight: 800; line-height: 1.02;
-  letter-spacing: -0.03em; color: var(--white);
-  margin-bottom: 1.6rem;
-}
-#vk .hero-left h1 em { font-style: normal; color: var(--red); position: relative; display: inline-block; }
-#vk .hero-desc {
-  color: var(--muted); font-size: 1.02rem;
-  line-height: 1.8; max-width: 460px; margin-bottom: 2.6rem;
-}
-#vk .hero-desc strong { color: var(--white); font-weight: 600; }
-#vk .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+<!-- ───────────── RECEIPTS ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Receipts</span>
+    <h2 class="measure">Screenshots don't lie.</h2>
+    <p>Anyone can claim results. These are pulled directly from live client dashboards — Instagram insights and Meta Ads Manager, exactly as they appear.</p>
 
-/* right: photo composition */
-#vk .hero-right {
-  position: relative; z-index: 2;
-  display: flex; align-items: flex-end; justify-content: center;
-  align-self: end;
-  height: 100%;
-}
-#vk .hero-photo-wrap {
-  position: relative;
-  width: min(440px, 80%);
-  animation: photofloat 6s ease-in-out infinite alternate;
-}
-@keyframes photofloat {
-  from { transform: translateY(0); }
-  to { transform: translateY(-14px); }
-}
-#vk .hero-photo-wrap::before {
-  content: '';
-  position: absolute;
-  inset: auto -15% -4% -15%;
-  height: 70%;
-  background: linear-gradient(160deg, rgba(227,18,18,0.9), #7a0808);
-  border-radius: 24px 24px 0 0;
-  z-index: -1;
-  transform: skewY(-4deg);
-}
-#vk .hero-photo-wrap img {
-  width: 100%; display: block;
-  filter: drop-shadow(0 30px 50px rgba(0,0,0,0.6));
-}
-/* floating badge chips around photo */
-#vk .chip {
-  position: absolute;
-  background: rgba(17,17,17,0.92);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  padding: 0.7rem 1.1rem;
-  font-size: 0.72rem; color: var(--white);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  white-space: nowrap;
-  z-index: 4;
-}
-#vk .chip strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; color: var(--red); font-weight: 800; }
-#vk .chip-1 { top: 14%; left: -22%; animation: chipfloat 5s ease-in-out infinite alternate; }
-#vk .chip-2 { top: 42%; right: -24%; animation: chipfloat 6s 0.5s ease-in-out infinite alternate; }
-#vk .chip-3 { bottom: 12%; left: -26%; animation: chipfloat 7s 1s ease-in-out infinite alternate; }
-@keyframes chipfloat {
-  from { transform: translateY(0); }
-  to { transform: translateY(-12px); }
-}
-
-@media(max-width: 860px) {
-  #vk .hero { grid-template-columns: 1fr; padding-top: 6rem; min-height: auto; gap: 3rem; }
-  #vk .hero-left { padding-bottom: 0; }
-  #vk .hero-word { display: none; }
-  #vk .hero-photo-wrap { width: min(280px, 70%); }
-  #vk .chip-1 { left: -6%; }
-  #vk .chip-2 { right: -6%; }
-  #vk .chip-3 { left: -4%; bottom: 6%; }
-  #vk .hero-ring { width: 300px; height: 300px; }
-}
-
-/* ═══════════════════════════════════════
-   MARQUEE — red strip
-═══════════════════════════════════════ */
-#vk .strip { background: var(--red); padding: 1.3rem 0; overflow: hidden; position: relative; z-index: 3; }
-#vk .strip-track { display: flex; width: max-content; animation: marq 24s linear infinite; }
-#vk .strip-in { display: flex; gap: 3rem; padding: 0 1.5rem; align-items: center; white-space: nowrap; }
-#vk .strip-word {
-  font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
-}
-#vk .strip-x { color: rgba(0,0,0,0.35); font-weight: 800; }
-@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ═══════════════════════════════════════
-   BIG NUMBERS — animated counters
-═══════════════════════════════════════ */
-#vk .nums { padding: 6rem 6vw 5rem; border-bottom: 1px solid var(--border); }
-#vk .nums-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
-  margin-top: 3.5rem;
-}
-#vk .num-card { border-left: 2px solid var(--red); padding-left: 1.5rem; }
-#vk .num-val {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 800; color: var(--white); line-height: 1;
-  margin-bottom: 0.6rem;
-}
-#vk .num-val span { color: var(--red); }
-#vk .num-label { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-@media(max-width: 800px) {
-  #vk .nums-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.2rem; }
-  #vk .num-val { font-size: clamp(1.7rem, 8vw, 2.4rem); }
-  #vk .num-card { padding-left: 1rem; padding-right: 0.5rem; }
-  #vk .num-label { font-size: 0.76rem; }
-}
-@media(max-width: 480px) {
-  #vk .nums-grid { grid-template-columns: 1fr; gap: 2rem; }
-  #vk .num-val { font-size: 2.4rem; }
-}
-
-/* ═══════════════════════════════════════
-   AGENCY DEPARTMENTS
-═══════════════════════════════════════ */
-#vk .dept { padding: 7rem 6vw; }
-#vk .dept-list { margin-top: 3.5rem; }
-#vk .dept-row {
-  display: grid; grid-template-columns: 80px 1fr 1.4fr;
-  gap: 2rem; align-items: center;
-  padding: 2.2rem 1.5rem;
-  border-top: 1px solid var(--border);
-  transition: background 0.3s, padding-left 0.3s;
-  cursor: default;
-}
-#vk .dept-row:last-child { border-bottom: 1px solid var(--border); }
-#vk .dept-row:hover { background: var(--mid); padding-left: 2.2rem; }
-#vk .dept-num {
-  font-family: 'Syne', sans-serif; font-size: 0.9rem;
-  font-weight: 700; color: var(--red);
-}
-#vk .dept-row h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  font-weight: 700; color: var(--white);
-}
-#vk .dept-row p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
-@media(max-width: 720px) {
-  #vk .dept-row { grid-template-columns: 1fr; gap: 0.6rem; padding: 1.8rem 1rem; }
-}
-
-/* ═══════════════════════════════════════
-   WORK — websites
-═══════════════════════════════════════ */
-#vk .work { padding: 7rem 6vw; background: var(--mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-#vk .site-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem; margin-top: 3.5rem;
-}
-#vk .site-card {
-  background: var(--black);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: transform 0.35s, border-color 0.35s;
-  text-decoration: none;
-  display: block;
-}
-#vk .site-card:hover { transform: translateY(-6px); border-color: rgba(227,18,18,0.5); }
-#vk .site-browser {
-  background: #161616;
-  padding: 0.7rem 1rem;
-  display: flex; align-items: center; gap: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-#vk .site-dots { display: flex; gap: 0.35rem; }
-#vk .site-dots span { width: 9px; height: 9px; border-radius: 50%; background: #2e2e2e; }
-#vk .site-dots span:first-child { background: rgba(227,18,18,0.7); }
-#vk .site-url {
-  flex: 1; background: #0d0d0d; border-radius: 6px;
-  padding: 0.3rem 0.9rem; font-size: 0.72rem; color: var(--muted);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-#vk .site-body { padding: 1.8rem 1.6rem; }
-#vk .site-tag {
-  display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--red);
-  margin-bottom: 0.7rem; font-weight: 600;
-}
-#vk .site-body h3 {
-  font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700;
-  color: var(--white); margin-bottom: 0.5rem;
-}
-#vk .site-body p { color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
-#vk .site-visit {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  margin-top: 1.2rem; font-size: 0.8rem; color: var(--white);
-  font-weight: 600;
-}
-#vk .site-visit::after { content: '→'; color: var(--red); transition: transform 0.3s; }
-#vk .site-card:hover .site-visit::after { transform: translateX(5px); }
-
-/* ═══════════════════════════════════════
-   VIDEO — vertical reels
-═══════════════════════════════════════ */
-#vk .video { padding: 7rem 6vw; }
-#vk .video-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
-  gap: 2rem; margin-top: 3.5rem; justify-content: center;
-}
-#vk .reel {
-  position: relative;
-  aspect-ratio: 9/16;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--mid);
-  transition: transform 0.35s, border-color 0.35s;
-}
-#vk .reel:hover { transform: translateY(-6px) scale(1.01); border-color: rgba(227,18,18,0.5); }
-#vk .reel iframe {
-  width: 100%; height: 100%; border: 0; display: block;
-}
-#vk .reel-label {
-  text-align: center; margin-top: 1rem;
-  font-size: 0.8rem; color: var(--muted);
-}
-
-/* ═══════════════════════════════════════
-   RESULTS — case study w/ animated bars
-═══════════════════════════════════════ */
-#vk .results { padding: 7rem 6vw; background: var(--mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-#vk .res-head { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; margin-bottom: 4rem; }
-@media(max-width: 760px) { #vk .res-head { grid-template-columns: 1fr; } }
-
-#vk .res-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-#vk .res-card {
-  background: var(--black); border: 1px solid var(--border);
-  border-radius: 14px; padding: 2rem 1.8rem;
-  position: relative; overflow: hidden;
-}
-#vk .res-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--red), transparent);
-}
-#vk .res-metric {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800; color: var(--red); line-height: 1;
-  margin-bottom: 0.5rem;
-  word-break: break-word;
-}
-#vk .res-what { font-size: 0.92rem; color: var(--white); font-weight: 600; margin-bottom: 0.35rem; }
-#vk .res-note { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
-
-/* growth bars */
-#vk .growth-wrap { margin-top: 4rem; }
-#vk .growth-title {
-  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
-  color: var(--white); margin-bottom: 2rem;
-  display: flex; align-items: center; gap: 0.8rem;
-}
-#vk .growth-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-#vk .gbar { margin-bottom: 1.5rem; }
-#vk .gbar-label {
-  display: flex; justify-content: space-between;
-  font-size: 0.82rem; margin-bottom: 0.55rem;
-}
-#vk .gbar-label b { color: var(--white); font-weight: 600; }
-#vk .gbar-label span { color: var(--red); font-weight: 700; }
-#vk .gbar-track { height: 8px; background: #1a1a1a; border-radius: 5px; overflow: hidden; }
-#vk .gbar-fill {
-  height: 100%; border-radius: 5px;
-  background: linear-gradient(90deg, #7a0808, var(--red));
-  width: 0;
-  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-
-/* ═══════════════════════════════════════
-   BEHIND THE BRAND — photo feature
-═══════════════════════════════════════ */
-#vk .behind { padding: 7rem 6vw; border-top: 1px solid var(--border); }
-#vk .behind-grid {
-  display: grid; grid-template-columns: 0.9fr 1.1fr;
-  gap: 4.5rem; align-items: center;
-}
-#vk .behind-photo {
-  position: relative;
-}
-#vk .behind-photo::before {
-  content: '';
-  position: absolute; inset: -14px -14px 14px 14px;
-  border: 1px solid rgba(227,18,18,0.4);
-  border-radius: 18px;
-  z-index: 0;
-  transition: inset 0.4s;
-}
-#vk .behind-photo:hover::before { inset: -8px -8px 8px 8px; }
-#vk .behind-photo img {
-  width: 100%; display: block;
-  border-radius: 18px;
-  position: relative; z-index: 1;
-  filter: grayscale(25%) contrast(1.05);
-  transition: filter 0.5s;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-}
-#vk .behind-photo:hover img { filter: grayscale(0%) contrast(1); }
-#vk .behind-badge {
-  position: absolute; bottom: 6%; left: -8%;
-  background: var(--red); color: #fff;
-  border-radius: 14px;
-  padding: 1rem 1.4rem;
-  z-index: 2;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  animation: chipfloat 5s ease-in-out infinite alternate;
-}
-#vk .behind-badge strong {
-  display: block; font-family: 'Syne', sans-serif;
-  font-size: 1.3rem; font-weight: 800; line-height: 1;
-}
-#vk .behind-badge span { font-size: 0.7rem; opacity: 0.85; }
-#vk .behind-text p {
-  color: var(--muted); font-size: 0.97rem; line-height: 1.85;
-  margin-bottom: 1.2rem;
-}
-#vk .behind-text p strong { color: var(--white); font-weight: 600; }
-#vk .behind-points { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
-#vk .behind-point {
-  display: flex; gap: 1rem; align-items: flex-start;
-  padding: 1.1rem 1.3rem;
-  background: var(--mid); border: 1px solid var(--border);
-  border-radius: 12px;
-  transition: border-color 0.3s, transform 0.3s;
-}
-#vk .behind-point:hover { border-color: rgba(227,18,18,0.4); transform: translateX(6px); }
-#vk .behind-point .bp-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--red); flex-shrink: 0; margin-top: 0.5rem;
-}
-#vk .behind-point b { display: block; color: var(--white); font-size: 0.9rem; margin-bottom: 0.15rem; }
-#vk .behind-point p { font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.6; }
-@media(max-width: 820px) {
-  #vk .behind-grid { grid-template-columns: 1fr; gap: 3rem; }
-  #vk .behind-photo { max-width: 420px; margin: 0 auto; }
-  #vk .behind-badge { left: 4%; }
-}
-
-/* fallback when cutout not yet uploaded */
-#vk .hero-photo-wrap.no-photo { min-height: 420px; }
-#vk .hero-photo-wrap.no-photo::before {
-  inset: 0; height: 100%; transform: skewY(0);
-  border-radius: 24px;
-  background: linear-gradient(160deg, rgba(227,18,18,0.9), #7a0808),
-              url('images/victor-portrait.jpg') center/cover;
-  background-blend-mode: multiply;
-}
-
-/* ═══════════════════════════════════════
-   CLIENTS — non-clickable strip
-═══════════════════════════════════════ */
-#vk .clients { padding: 5rem 6vw; }
-#vk .clients-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-  margin-top: 3rem;
-}
-#vk .client-cell {
-  background: var(--black);
-  padding: 2.4rem 1.5rem;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 0.92rem; font-weight: 700; color: var(--muted);
-  transition: color 0.3s, background 0.3s;
-  line-height: 1.4;
-}
-#vk .client-cell:hover { color: var(--white); background: var(--mid); }
-
-/* ═══════════════════════════════════════
-   CTA — calendly
-═══════════════════════════════════════ */
-#vk .cta {
-  padding: 8rem 6vw;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-}
-#vk .cta-glow {
-  position: absolute; width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(227,18,18,0.13) 0%, transparent 60%);
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  animation: glowfloat 8s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-#vk .cta h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 6.5vw, 4.2rem);
-  font-weight: 800; line-height: 1.05; letter-spacing: -0.02em;
-  color: var(--white); margin-bottom: 1.2rem;
-  position: relative;
-}
-#vk .cta h2 em { font-style: normal; color: var(--red); }
-#vk .cta p { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; position: relative; }
-#vk .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
-#vk .cta-note { margin-top: 1.4rem; font-size: 0.78rem; color: var(--muted); position: relative; }
-
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-#vk .footer {
-  padding: 2.5rem 6vw;
-  border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1.2rem;
-  font-size: 0.8rem; color: var(--muted);
-}
-#vk .footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-#vk .footer a:hover { color: var(--red); }
-#vk .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-</style>
-
-<div id="vk">
-
-  <!-- ═════════ HERO ═════════ -->
-  <div class="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-ring"></div>
-    <div class="hero-word">VIKADY</div>
-
-    <div class="hero-left">
-      <div class="hero-pill"><span class="dot"></span>Available for new projects</div>
-      <h1>One person.<br>A full <em>marketing</em><br><em>agency.</em></h1>
-      <p class="hero-desc">Strategy, content, video, design, websites, ads, and analytics — <strong>all under one roof.</strong> I'm Victor Adisa, and working with me means skipping the agency retainer and getting the whole department anyway.</p>
-      <div class="hero-btns">
-        <a href="https://calendly.com/adisavictor4/30min" target="_blank" class="btn-r">Book a free strategy call</a>
-        <a href="#vk-work" class="btn-g">See the work</a>
-      </div>
+    <div class="row" style="margin-top:4rem">
+      <div class="fig"><span class="label">Ad impressions</span><b>7.1M</b><span>Delivered in one campaign period</span></div>
+      <div class="fig"><span class="label">Accounts reached</span><b>1.6M</b><span>Through paid campaigns</span></div>
+      <div class="fig"><span class="label">Single month</span><b>988K</b><span>Views in a single month — one account</span></div>
+      <div class="fig"><span class="label">Non-followers</span><b>93%</b><span>Of views from non-followers — new audiences, not echo chambers</span></div>
     </div>
 
-    <div class="hero-right">
-      <div class="hero-photo-wrap">
-        <!-- UPLOAD victor-cutout.png TO YOUR WORDPRESS MEDIA LIBRARY, THEN REPLACE THIS URL -->
-        <img src="images/victor-cutout.png" alt="" onerror="this.style.display='none'; this.parentElement.classList.add('no-photo');" />
-        <div class="chip chip-1"><strong>5.2M</strong>Impressions generated</div>
-        <div class="chip chip-2"><strong>4.7M</strong>Views on one reel</div>
-        <div class="chip chip-3"><strong>+35%</strong>Follower growth</div>
+    <figure class="shot" style="max-width:300px">
+      <img src="images/dashboard-screenshot-2.png" alt="Instagram insights showing 575K monthly views" width="621" height="1344" loading="lazy">
+      <figcaption class="label">575K views · organic + paid mix</figcaption>
+    </figure>
+    <figure class="shot" style="max-width:300px">
+      <img src="images/dashboard-screenshot-1.png" alt="Instagram insights showing 988K monthly views" width="621" height="1123" loading="lazy">
+      <figcaption class="label">988K views · 400K+ accounts reached</figcaption>
+    </figure>
+    <figure class="shot" style="max-width:300px">
+      <img src="images/dashboard-screenshot-3.png" alt="Meta Ads Manager showing 7.1M impressions" width="621" height="1344" loading="lazy">
+      <figcaption class="label">7.1M impressions · Meta Ads Manager</figcaption>
+    </figure>
+
+    <p class="label" style="margin-top:2.5rem">Pulled directly from client dashboards. Names cropped for privacy — numbers untouched.</p>
+  </div>
+</section>
+
+<!-- ───────────── SERVICES ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Why it feels like an agency</span>
+    <h2 class="measure">Every department. One point of contact.</h2>
+    <p>Most brands juggle a strategist, a designer, a video editor, a web developer, and an ads manager — and hope they talk to each other. With me, they already do.</p>
+
+    <div class="rules">
+      <div class="rule-item"><span class="label">01 / Strategy</span><div><h3>Strategy</h3>
+        <p>Brand positioning, content calendars, funnel planning, and growth roadmaps built around your actual business goals — not vanity metrics.</p></div></div>
+      <div class="rule-item"><span class="label">02 / Content</span><div><h3>Content &amp; Video</h3>
+        <p>Short-form video, Reels, and platform-native content that stops the scroll. Shot, edited, captioned, and published — end to end.</p></div></div>
+      <div class="rule-item"><span class="label">03 / Design</span><div><h3>Design</h3>
+        <p>Graphics, brand assets, campaign creatives, and social templates that keep every touchpoint looking intentional and consistent.</p></div></div>
+      <div class="rule-item"><span class="label">04 / Web</span><div><h3>Web Development</h3>
+        <p>WordPress builds, custom landing pages, conversion tracking, CRM integrations, and SEO — websites that work as hard as the content.</p></div></div>
+      <div class="rule-item"><span class="label">05 / Ads</span><div><h3>Paid Advertising</h3>
+        <p>Meta, Google, and YouTube campaigns with real targeting, A/B testing, and reporting — built to convert, not just to spend.</p></div></div>
+      <div class="rule-item"><span class="label">06 / Analytics</span><div><h3>Analytics &amp; Reporting</h3>
+        <p>Monthly performance reports that make sense. What grew, why it grew, and what we're doing next — no jargon, no fluff.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── WORK ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Selected work — websites &amp; landing pages</span>
+    <h2 class="measure">Built to convert.</h2>
+    <p>A few of many websites and landing pages designed, built, and managed — from multi-brand corporate sites to high-converting recruitment pages.</p>
+
+    <div class="rules">
+      <a class="work-item" href="https://meiborg.com/owner-ops/">
+        <span class="label">meiborg.com/owner-ops — Landing Page · Recruitment</span>
+        <h3>Owner Operator Campaign</h3>
+        <p>High-converting recruitment landing page built for a national driver campaign — custom form, conversion tracking, and Google Ads integration.</p>
+        <span class="go">View live page</span>
+      </a>
+      <a class="work-item" href="https://meiborg.com">
+        <span class="label">meiborg.com — Corporate Site · Multi-brand</span>
+        <h3>Meiborg Companies</h3>
+        <p>Full website management for a multi-brand logistics group — SEO landing pages, content updates, forms, and performance optimization.</p>
+        <span class="go">View live site</span>
+      </a>
+      <div class="work-item">
+        <span class="label">thevictoradisa.com — Personal Brand · Custom Build</span>
+        <h3>VIKADY</h3>
+        <p>This site — designed and hand-coded with custom HTML, CSS animations, and motion design. What you're looking at is the portfolio.</p>
+        <span class="label" style="margin-top:1.1rem">You're here</span>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ═════════ RED MARQUEE ═════════ -->
-  <div class="strip">
-    <div class="strip-track">
-      <div class="strip-in">
-        <span class="strip-word">Strategy</span><span class="strip-x">✕</span>
-        <span class="strip-word">Content</span><span class="strip-x">✕</span>
-        <span class="strip-word">Video</span><span class="strip-x">✕</span>
-        <span class="strip-word">Design</span><span class="strip-x">✕</span>
-        <span class="strip-word">Web Development</span><span class="strip-x">✕</span>
-        <span class="strip-word">Paid Ads</span><span class="strip-x">✕</span>
-        <span class="strip-word">Analytics</span><span class="strip-x">✕</span>
-        <span class="strip-word">Growth</span><span class="strip-x">✕</span>
-      </div>
-      <div class="strip-in" aria-hidden="true">
-        <span class="strip-word">Strategy</span><span class="strip-x">✕</span>
-        <span class="strip-word">Content</span><span class="strip-x">✕</span>
-        <span class="strip-word">Video</span><span class="strip-x">✕</span>
-        <span class="strip-word">Design</span><span class="strip-x">✕</span>
-        <span class="strip-word">Web Development</span><span class="strip-x">✕</span>
-        <span class="strip-word">Paid Ads</span><span class="strip-x">✕</span>
-        <span class="strip-word">Analytics</span><span class="strip-x">✕</span>
-        <span class="strip-word">Growth</span><span class="strip-x">✕</span>
-      </div>
+<!-- ───────────── VIDEO ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Video editing &amp; production</span>
+    <h2 class="measure">Content that gets watched.</h2>
+    <p>A few of many short-form videos edited and produced — one of these formats drove 4.7M views in a single month.</p>
+
+    <figure class="shot">
+      <div class="embed"><iframe src="https://www.youtube.com/embed/KV-LHLdIgjk" title="Short-form edit — concept to publish" loading="lazy" allowfullscreen></iframe></div>
+      <figcaption class="label">Short-form edit · Concept to publish</figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="embed"><iframe src="https://www.youtube.com/embed/Nd7HS27lHdY" title="Short-form edit — motion and pacing" loading="lazy" allowfullscreen></iframe></div>
+      <figcaption class="label">Short-form edit · Motion &amp; pacing</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────────── CASE STUDY ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Case study · Logistics brand</span>
+    <h2 class="measure">7 months. One brand. Every metric up.</h2>
+    <p>Full-stack marketing for a multi-brand logistics company — social strategy, video content, paid campaigns, and website management, all handled by one person. Here's what happened.</p>
+
+    <div class="row" style="margin-top:4rem">
+      <div class="fig"><span class="label">Total combined followers</span><b>12,330</b><span>+1,876 net new across 4 platforms — an 18% jump in 7 months</span></div>
+      <div class="fig"><span class="label">Total impressions</span><b>5.2M</b><span>Across Facebook, Instagram, LinkedIn &amp; YouTube combined</span></div>
+      <div class="fig"><span class="label">YouTube video views</span><b>+1,361%</b><span>36.6K views in a single month, driven by targeted ad strategy</span></div>
+      <div class="fig"><span class="label">Website page views</span><b>+122%</b><span>12.7K page views with direct + organic traffic leading all sources</span></div>
+    </div>
+
+    <p class="label" style="margin-top:4rem">Platform growth over the same period</p>
+    <div class="rules" style="margin-top:1.5rem">
+      <div class="pair"><span>Facebook impressions</span><span>128K → 1.47M / month</span></div>
+      <div class="pair"><span>Facebook followers</span><span>+35% growth</span></div>
+      <div class="pair"><span>LinkedIn reach</span><span>+65% best month</span></div>
+      <div class="pair"><span>Website active users</span><span>596 → 976 / week at peak</span></div>
     </div>
   </div>
+</section>
 
-  <!-- ═════════ BIG NUMBERS ═════════ -->
-  <div class="nums">
-    <div class="inner">
-      <span class="eyebrow fx">Real numbers, real results</span>
-      <h2 class="h2 fx">The kind of results<br>agencies <em>promise.</em></h2>
-      <div class="nums-grid">
-        <div class="num-card fx">
-          <div class="num-val"><span class="count" data-target="5.2" data-suffix="M" data-decimal="1">0</span></div>
-          <div class="num-label">Total impressions generated across platforms in 7 months</div>
-        </div>
-        <div class="num-card fx fx-d1">
-          <div class="num-val"><span class="count" data-target="4.7" data-suffix="M" data-decimal="1">0</span></div>
-          <div class="num-label">Views on a single reel — a record month for the brand</div>
-        </div>
-        <div class="num-card fx fx-d2">
-          <div class="num-val">+<span class="count" data-target="35" data-suffix="%">0</span></div>
-          <div class="num-label">Facebook follower growth in one campaign period</div>
-        </div>
-        <div class="num-card fx fx-d3">
-          <div class="num-val"><span class="count" data-target="8053" data-comma="1">0</span></div>
-          <div class="num-label">Website users driven in a single 11-week window</div>
-        </div>
-      </div>
+<!-- ───────────── BEHIND THE BRAND ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Behind the brand — 10+ years of craft</span>
+    <h2 class="measure">Built different. On purpose.</h2>
+    <p>Most marketers pick a lane. I built the whole road. Strategy taught me what to say, design taught me how to make it beautiful, and code taught me how to make it convert.</p>
+    <p style="margin-top:1.4rem">That combination is why brands hand me the entire engine — not just a piece of it.</p>
+
+    <figure class="portrait" style="margin-top:3.5rem">
+      <img src="images/victor-portrait.jpg" alt="Victor Adisa" width="1024" height="1024" loading="lazy">
+      <figcaption class="label">10+ years of craft</figcaption>
+    </figure>
+
+    <div class="rules">
+      <div class="rule-item"><span class="label">01</span><div><h3>Creative that performs</h3>
+        <p>Every visual, video, and caption is engineered for attention and built for conversion.</p></div></div>
+      <div class="rule-item"><span class="label">02</span><div><h3>Systems that scale</h3>
+        <p>Repeatable workflows keep your brand publishing consistently without burning anyone out.</p></div></div>
+      <div class="rule-item"><span class="label">03</span><div><h3>Numbers that talk</h3>
+        <p>Every campaign is measured, reported, and improved. If it does not move the metric, it changes.</p></div></div>
     </div>
   </div>
+</section>
 
-  <!-- ═════════ RECEIPTS — proof section ═════════ -->
-<style>
-#vk-receipts { background: #0a0a0a; padding: 7rem 6vw; border-top: 1px solid #1f1f1f; border-bottom: 1px solid #1f1f1f; font-family: 'Inter', sans-serif; overflow: hidden; }
-#vk-receipts * { box-sizing: border-box; margin: 0; padding: 0; }
-#vk-receipts .rc-inner { max-width: 1150px; margin: 0 auto; }
-#vk-receipts .rc-eyebrow {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: #e31212; margin-bottom: 1rem; font-weight: 600;
-}
-#vk-receipts .rc-eyebrow::before { content: ''; width: 24px; height: 1px; background: #e31212; }
-#vk-receipts .rc-h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  font-weight: 800; line-height: 1.06; letter-spacing: -0.02em;
-  color: #f0efed; margin-bottom: 1rem;
-}
-#vk-receipts .rc-h2 em { font-style: normal; color: #e31212; }
-#vk-receipts .rc-sub { color: #8a8a8a; font-size: 0.95rem; line-height: 1.8; max-width: 540px; }
-#vk-receipts .rc-stats {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem; margin: 3rem 0 3.5rem;
-}
-#vk-receipts .rc-stat { border-left: 2px solid #e31212; padding-left: 1.2rem; }
-#vk-receipts .rc-stat b {
-  display: block; font-family: 'Syne', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800;
-  color: #f0efed; line-height: 1;
-}
-#vk-receipts .rc-stat span { font-size: 0.75rem; color: #8a8a8a; line-height: 1.4; display: block; margin-top: 0.4rem; }
-@media (max-width: 760px) {
-  #vk-receipts .rc-stats { grid-template-columns: repeat(2, 1fr); gap: 1.8rem 1rem; }
-}
-#vk-receipts .rc-phones {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 2rem; align-items: start;
-}
-#vk-receipts .rc-phone {
-  background: #111;
-  border: 1px solid #262626;
-  border-radius: 34px;
-  padding: 12px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.55), 0 0 60px rgba(227,18,18,0.06);
-  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s;
-  position: relative;
-}
-#vk-receipts .rc-phone::before {
-  content: '';
-  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-  width: 84px; height: 18px;
-  background: #111; border-radius: 0 0 12px 12px;
-  z-index: 2;
-}
-#vk-receipts .rc-phone:nth-child(1) { transform: rotate(-2.5deg) translateY(10px); }
-#vk-receipts .rc-phone:nth-child(2) { transform: translateY(-6px); }
-#vk-receipts .rc-phone:nth-child(3) { transform: rotate(2.5deg) translateY(10px); }
-#vk-receipts .rc-phone:hover {
-  transform: rotate(0) translateY(-8px) scale(1.02);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.65), 0 0 80px rgba(227,18,18,0.15);
-  z-index: 3;
-}
-#vk-receipts .rc-phone img {
-  width: 100%; display: block;
-  border-radius: 24px;
-  border: 1px solid #1a1a1a;
-}
-#vk-receipts .rc-phone-label {
-  text-align: center;
-  font-size: 0.72rem; color: #8a8a8a;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-top: 0.9rem;
-}
-#vk-receipts .rc-phone-label b { color: #e31212; font-weight: 700; }
-@media (max-width: 820px) {
-  #vk-receipts .rc-phones { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; gap: 2.5rem; }
-  #vk-receipts .rc-phone:nth-child(1),
-  #vk-receipts .rc-phone:nth-child(2),
-  #vk-receipts .rc-phone:nth-child(3) { transform: rotate(0) translateY(0); }
-}
-#vk-receipts .rc-caption {
-  text-align: center; margin-top: 3rem;
-  font-size: 0.8rem; color: #666;
-  font-style: italic;
-}
-#vk-receipts .rc-fx { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-#vk-receipts .rc-fx.rc-on { opacity: 1; transform: translateY(0); }
-</style>
-
-<div id="vk-receipts">
-  <div class="rc-inner">
-    <span class="rc-eyebrow rc-fx">Receipts</span>
-    <h2 class="rc-h2 rc-fx">Screenshots<br>don't <em>lie.</em></h2>
-    <p class="rc-sub rc-fx">Anyone can claim results. These are pulled directly from live client dashboards — Instagram insights and Meta Ads Manager, exactly as they appear.</p>
-
-    <div class="rc-stats rc-fx">
-      <div class="rc-stat"><b>7.1M</b><span>Ad impressions delivered in one campaign period</span></div>
-      <div class="rc-stat"><b>1.6M</b><span>Accounts reached through paid campaigns</span></div>
-      <div class="rc-stat"><b>988K</b><span>Views in a single month — one account</span></div>
-      <div class="rc-stat"><b>93%</b><span>Of views from non-followers — new audiences, not echo chambers</span></div>
-    </div>
-
-    <div class="rc-phones rc-fx">
-      <div class="rc-phone">
-        <img src="images/dashboard-screenshot-2.png" alt="Instagram insights showing 575K monthly views" loading="lazy" />
-        <div class="rc-phone-label"><b>575K views</b> · organic + paid mix</div>
-      </div>
-      <div class="rc-phone">
-        <img src="images/dashboard-screenshot-1.png" alt="Instagram insights showing 988K monthly views" loading="lazy" />
-        <div class="rc-phone-label"><b>988K views</b> · 400K+ accounts reached</div>
-      </div>
-      <div class="rc-phone">
-        <img src="images/dashboard-screenshot-3.png" alt="Meta Ads Manager showing 7.1M impressions" loading="lazy" />
-        <div class="rc-phone-label"><b>7.1M impressions</b> · Meta Ads Manager</div>
-      </div>
-    </div>
-
-    <p class="rc-caption rc-fx">Pulled directly from client dashboards. Names cropped for privacy — numbers untouched.</p>
-  </div>
-</div>
-
-  <!-- ═════════ AGENCY DEPARTMENTS ═════════ -->
-  <div class="dept">
-    <div class="inner">
-      <span class="eyebrow fx">Why it feels like an agency</span>
-      <h2 class="h2 fx">Every department.<br>One point of contact.</h2>
-      <p class="sub fx">Most brands juggle a strategist, a designer, a video editor, a web developer, and an ads manager — and hope they talk to each other. With me, they already do.</p>
-
-      <div class="dept-list fx">
-        <div class="dept-row">
-          <div class="dept-num">/01</div>
-          <h3>Strategy</h3>
-          <p>Brand positioning, content calendars, funnel planning, and growth roadmaps built around your actual business goals — not vanity metrics.</p>
-        </div>
-        <div class="dept-row">
-          <div class="dept-num">/02</div>
-          <h3>Content & Video</h3>
-          <p>Short-form video, Reels, and platform-native content that stops the scroll. Shot, edited, captioned, and published — end to end.</p>
-        </div>
-        <div class="dept-row">
-          <div class="dept-num">/03</div>
-          <h3>Design</h3>
-          <p>Graphics, brand assets, campaign creatives, and social templates that keep every touchpoint looking intentional and consistent.</p>
-        </div>
-        <div class="dept-row">
-          <div class="dept-num">/04</div>
-          <h3>Web Development</h3>
-          <p>WordPress builds, custom landing pages, conversion tracking, CRM integrations, and SEO — websites that work as hard as the content.</p>
-        </div>
-        <div class="dept-row">
-          <div class="dept-num">/05</div>
-          <h3>Paid Advertising</h3>
-          <p>Meta, Google, and YouTube campaigns with real targeting, A/B testing, and reporting — built to convert, not just to spend.</p>
-        </div>
-        <div class="dept-row">
-          <div class="dept-num">/06</div>
-          <h3>Analytics & Reporting</h3>
-          <p>Monthly performance reports that make sense. What grew, why it grew, and what we're doing next — no jargon, no fluff.</p>
-        </div>
-      </div>
+<!-- ───────────── CLIENTS ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Brands I've worked with</span>
+    <h2 class="measure">Trusted across industries.</h2>
+    <div class="rules">
+      <div class="pair"><span>Meiborg Companies</span></div>
+      <div class="pair"><span>Coach Dr J</span></div>
+      <div class="pair"><span>Websterberry Marketing</span></div>
+      <div class="pair"><span>Nourished by Faith Wellness</span></div>
+      <div class="pair"><span>Tabatha Nichols Personal Brand</span></div>
+      <div class="pair"><span>Ignite Funnels</span></div>
     </div>
   </div>
+</section>
 
-  <!-- ═════════ WEBSITES BUILT ═════════ -->
-  <div class="work" id="vk-work">
-    <div class="inner">
-      <span class="eyebrow fx">Websites & landing pages</span>
-      <h2 class="h2 fx">Built to <em>convert.</em></h2>
-      <p class="sub fx">A few of many websites and landing pages designed, built, and managed — from multi-brand corporate sites to high-converting recruitment pages.</p>
-
-      <div class="site-grid fx">
-        <a href="https://meiborg.com/owner-ops/" target="_blank" class="site-card">
-          <div class="site-browser">
-            <div class="site-dots"><span></span><span></span><span></span></div>
-            <div class="site-url">meiborg.com/owner-ops</div>
-          </div>
-          <div class="site-body">
-            <span class="site-tag">Landing Page · Recruitment</span>
-            <h3>Owner Operator Campaign</h3>
-            <p>High-converting recruitment landing page built for a national driver campaign — custom form, conversion tracking, and Google Ads integration.</p>
-            <span class="site-visit">View live page</span>
-          </div>
-        </a>
-        <a href="https://meiborg.com" target="_blank" class="site-card">
-          <div class="site-browser">
-            <div class="site-dots"><span></span><span></span><span></span></div>
-            <div class="site-url">meiborg.com</div>
-          </div>
-          <div class="site-body">
-            <span class="site-tag">Corporate Site · Multi-brand</span>
-            <h3>Meiborg Companies</h3>
-            <p>Full website management for a multi-brand logistics group — SEO landing pages, content updates, forms, and performance optimization.</p>
-            <span class="site-visit">View live site</span>
-          </div>
-        </a>
-        <a href="https://thevictoradisa.com" target="_blank" class="site-card">
-          <div class="site-browser">
-            <div class="site-dots"><span></span><span></span><span></span></div>
-            <div class="site-url">thevictoradisa.com</div>
-          </div>
-          <div class="site-body">
-            <span class="site-tag">Personal Brand · Custom Build</span>
-            <h3>VIKADY</h3>
-            <p>This site — designed and hand-coded with custom HTML, CSS animations, and motion design. What you're looking at is the portfolio.</p>
-            <span class="site-visit">You're here</span>
-          </div>
-        </a>
-      </div>
-    </div>
+<!-- ───────────── CTA ───────────── -->
+<section>
+  <div class="wrap head">
+    <span class="label">Ready to grow your brand? — Free 30-minute strategy call</span>
+    <h2 class="measure">Skip the agency. Get the results.</h2>
+    <p>30 minutes. Free. We'll map out exactly what your brand needs to grow.</p>
+    <p style="margin-top:2.6rem">
+      <a class="btn" href="https://calendly.com/adisavictor4/30min">Book your free call</a>
+      <a class="btn quiet" href="mailto:adisavictor4@gmail.com" style="margin-left:.8rem">Or email me</a>
+    </p>
+    <p class="label" style="margin-top:2.2rem">No pitch decks. No pressure. Just a real conversation about your growth.</p>
   </div>
+</section>
 
-  <!-- ═════════ VIDEO WORK ═════════ -->
-  <div class="video">
-    <div class="inner">
-      <span class="eyebrow fx">Video editing & production</span>
-      <h2 class="h2 fx">Content that gets <em>watched.</em></h2>
-      <p class="sub fx">A few of many short-form videos edited and produced — one of these formats drove 4.7M views in a single month.</p>
+</main>
 
-      <div class="video-grid fx">
-        <div>
-          <div class="reel">
-            <iframe src="https://www.youtube.com/embed/KV-LHLdIgjk" title="Video by Victor Adisa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <p class="reel-label">Short-form edit · Concept to publish</p>
-        </div>
-        <div>
-          <div class="reel">
-            <iframe src="https://www.youtube.com/embed/Nd7HS27lHdY" title="Video by Victor Adisa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <p class="reel-label">Short-form edit · Motion & pacing</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═════════ RESULTS / CASE STUDY ═════════ -->
-  <div class="results">
-    <div class="inner">
-      <div class="res-head">
-        <div>
-          <span class="eyebrow fx">Case study · Logistics brand</span>
-          <h2 class="h2 fx" style="margin-bottom:0;">7 months.<br>One brand.<br><em>Every metric up.</em></h2>
-        </div>
-        <p class="sub fx" style="margin-bottom:0.5rem;">Full-stack marketing for a multi-brand logistics company — social strategy, video content, paid campaigns, and website management, all handled by one person. Here's what happened.</p>
-      </div>
-
-      <div class="res-grid fx">
-        <div class="res-card">
-          <div class="res-metric">12,330</div>
-          <div class="res-what">Total combined followers</div>
-          <div class="res-note">+1,876 net new across 4 platforms — an 18% jump in 7 months</div>
-        </div>
-        <div class="res-card">
-          <div class="res-metric">5.2M</div>
-          <div class="res-what">Total impressions</div>
-          <div class="res-note">Across Facebook, Instagram, LinkedIn & YouTube combined</div>
-        </div>
-        <div class="res-card">
-          <div class="res-metric">+1,361%</div>
-          <div class="res-what">YouTube video views</div>
-          <div class="res-note">36.6K views in a single month, driven by targeted ad strategy</div>
-        </div>
-        <div class="res-card">
-          <div class="res-metric">+122%</div>
-          <div class="res-what">Website page views</div>
-          <div class="res-note">12.7K page views with direct + organic traffic leading all sources</div>
-        </div>
-      </div>
-
-      <div class="growth-wrap fx">
-        <div class="growth-title">Platform growth over the same period</div>
-        <div class="gbar">
-          <div class="gbar-label"><b>Facebook impressions</b><span>128K → 1.47M / month</span></div>
-          <div class="gbar-track"><div class="gbar-fill" data-w="100"></div></div>
-        </div>
-        <div class="gbar">
-          <div class="gbar-label"><b>Facebook followers</b><span>+35% growth</span></div>
-          <div class="gbar-track"><div class="gbar-fill" data-w="78"></div></div>
-        </div>
-        <div class="gbar">
-          <div class="gbar-label"><b>LinkedIn reach</b><span>+65% best month</span></div>
-          <div class="gbar-track"><div class="gbar-fill" data-w="60"></div></div>
-        </div>
-        <div class="gbar">
-          <div class="gbar-label"><b>Website active users</b><span>596 → 976 / week at peak</span></div>
-          <div class="gbar-track"><div class="gbar-fill" data-w="68"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═════════ BEHIND THE BRAND ═════════ -->
-  <div class="behind">
-    <div class="inner">
-      <div class="behind-grid">
-        <div class="behind-photo fx">
-          <img src="images/victor-portrait.jpg" alt="Victor Adisa" loading="lazy" />
-          <div class="behind-badge"><strong>10+</strong><span>years of craft</span></div>
-        </div>
-        <div class="behind-text">
-          <span class="eyebrow fx">Behind the brand</span>
-          <h2 class="h2 fx">Built different.<br>On <em>purpose.</em></h2>
-          <p class="fx">Most marketers pick a lane. I built the whole road. <strong>Strategy taught me what to say, design taught me how to make it beautiful, and code taught me how to make it convert.</strong></p>
-          <p class="fx fx-d1">That combination is why brands hand me the entire engine — not just a piece of it.</p>
-          <div class="behind-points fx fx-d2">
-            <div class="behind-point">
-              <span class="bp-dot"></span>
-              <div><b>Creative that performs</b><p>Every visual, video, and caption is engineered for attention and built for conversion.</p></div>
-            </div>
-            <div class="behind-point">
-              <span class="bp-dot"></span>
-              <div><b>Systems that scale</b><p>Repeatable workflows keep your brand publishing consistently without burning anyone out.</p></div>
-            </div>
-            <div class="behind-point">
-              <span class="bp-dot"></span>
-              <div><b>Numbers that talk</b><p>Every campaign is measured, reported, and improved. If it does not move the metric, it changes.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═════════ CLIENTS ═════════ -->
-  <div class="clients">
-    <div class="inner">
-      <span class="eyebrow fx">Brands I've worked with</span>
-      <h2 class="h2 fx">Trusted across industries.</h2>
-      <div class="clients-grid fx">
-        <div class="client-cell">Meiborg<br>Companies</div>
-        <div class="client-cell">Coach<br>Dr J</div>
-        <div class="client-cell">Websterberry<br>Marketing</div>
-        <div class="client-cell">Nourished by<br>Faith Wellness</div>
-        <div class="client-cell">Tabatha Nichols<br>Personal Brand</div>
-        <div class="client-cell">Ignite<br>Funnels</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═════════ CTA ═════════ -->
-  <div class="cta">
-    <div class="cta-glow"></div>
-    <h2 class="fx">Skip the agency.<br>Get the <em>results.</em></h2>
-    <p class="fx">30 minutes. Free. We'll map out exactly what your brand needs to grow.</p>
-    <div class="cta-btns fx">
-      <a href="https://calendly.com/adisavictor4/30min" target="_blank" class="btn-r">Book your free call</a>
-      <a href="mailto:adisavictor4@gmail.com" class="btn-g">Or email me</a>
-    </div>
-    <p class="cta-note fx">No pitch decks. No pressure. Just a real conversation about your growth.</p>
-  </div>
-
-  <!-- ═════════ FOOTER ═════════ -->
-  <div class="footer">
-    <div>&copy; 2026 Victor Adisa &nbsp;&middot;&nbsp; VIKADY</div>
-    <div class="footer-links">
-      <a href="https://www.instagram.com/thevictoradisa" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/victor-adisa-4a1778222" target="_blank">LinkedIn</a>
-      <a href="https://calendly.com/adisavictor4/30min" target="_blank">Book a call</a>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="label">© 2026 Victor Adisa · VIKADY</span>
+    <nav class="foot-links">
+      <a href="https://www.instagram.com/thevictoradisa">Instagram</a>
+      <a href="https://www.linkedin.com/in/victor-adisa-4a1778222">LinkedIn</a>
+      <a href="https://calendly.com/adisavictor4/30min">Book a call now</a>
       <a href="mailto:adisavictor4@gmail.com">adisavictor4@gmail.com</a>
-    </div>
+    </nav>
   </div>
+</footer>
 
-</div>
-
-<script>
-(function() {
-  // scroll fade-in
-  var els = document.querySelectorAll('#vk .fx');
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  els.forEach(function(el) { io.observe(el); });
-
-  // animated counters
-  function animateCount(el) {
-    var target = parseFloat(el.getAttribute('data-target'));
-    var suffix = el.getAttribute('data-suffix') || '';
-    var decimals = parseInt(el.getAttribute('data-decimal') || '0');
-    var comma = el.getAttribute('data-comma');
-    var dur = 1600, start = null;
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      var val = target * eased;
-      var text = decimals ? val.toFixed(decimals) : Math.round(val).toString();
-      if (comma) text = Number(text).toLocaleString();
-      el.textContent = text + suffix;
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  var counters = document.querySelectorAll('#vk .count');
-  var cio = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
-    });
-  }, { threshold: 0.4 });
-  counters.forEach(function(c) { cio.observe(c); });
-
-  // growth bars
-  var bars = document.querySelectorAll('#vk .gbar-fill');
-  var bio = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.style.width = e.target.getAttribute('data-w') + '%';
-        bio.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  bars.forEach(function(b) { bio.observe(b); });
-})();
-</script>
-
-<script>
-(function () {
-  var els = document.querySelectorAll('#vk-receipts .rc-fx');
-  var io = new IntersectionObserver(function (e) {
-    e.forEach(function (x) {
-      if (x.isIntersecting) { x.target.classList.add('rc-on'); io.unobserve(x.target); }
-    });
-  }, { threshold: 0.1 });
-  els.forEach(function (el) { io.observe(el); });
-})();
-</script>
-
-<style>
-#vk-stickybar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 9999;
-  background: rgba(14,14,14,0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid #262626;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem;
-  padding: 0.8rem 5vw;
-  font-family: 'Inter', sans-serif;
-  transform: translateY(110%);
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-#vk-stickybar.vk-show { transform: translateY(0); }
-#vk-stickybar .vksb-text { color: #f0efed; font-size: 0.88rem; font-weight: 500; }
-#vk-stickybar .vksb-text span { color: #8a8a8a; display: block; font-size: 0.72rem; font-weight: 400; }
-#vk-stickybar .vksb-btn {
-  background: #e31212; color: #fff;
-  padding: 0.7rem 1.8rem; border-radius: 100px;
-  font-size: 0.84rem; font-weight: 600;
-  text-decoration: none; white-space: nowrap;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: vksb-pulse 2.4s ease-in-out infinite;
-}
-#vk-stickybar .vksb-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -6px rgba(227,18,18,0.5); color:#fff; }
-@keyframes vksb-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(227,18,18,0.45); }
-  50% { box-shadow: 0 0 0 10px rgba(227,18,18,0); }
-}
-@media (min-width: 900px) {
-  #vk-stickybar {
-    left: 50%; right: auto; bottom: 22px;
-    transform: translate(-50%, 140%);
-    border: 1px solid #262626;
-    border-radius: 100px;
-    padding: 0.6rem 0.6rem 0.6rem 1.6rem;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    width: auto;
-  }
-  #vk-stickybar.vk-show { transform: translate(-50%, 0); }
-}
-</style>
-
-<div id="vk-stickybar">
-  <div class="vksb-text">Ready to grow your brand?<span>Free 30-minute strategy call</span></div>
-  <a href="https://calendly.com/adisavictor4/30min" target="_blank" class="vksb-btn">Book a call now</a>
-</div>
-
-<script>
-(function() {
-  var bar = document.getElementById('vk-stickybar');
-  if (!bar) return;
-  var shown = false;
-  window.addEventListener('scroll', function() {
-    var past = window.scrollY > window.innerHeight * 0.6;
-    if (past && !shown) { bar.classList.add('vk-show'); shown = true; }
-    else if (!past && shown) { bar.classList.remove('vk-show'); shown = false; }
-  }, { passive: true });
-})();
-</script>
 </body>
 </html>
